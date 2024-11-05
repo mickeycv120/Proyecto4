@@ -10,9 +10,9 @@ namespace Sintaxis_1
     {
         public enum Tipos
         {
-            Indentificador, 
-            Numero, 
-            Caracter, 
+            Indentificador,
+            Numero,
+            Caracter,
             FinSentencia,
             InicioBloque,
             FinBloque,
@@ -25,8 +25,9 @@ namespace Sintaxis_1
             Asignacion,
             OperadorRelacional,
             OperadorLogico,
-            Puntero,            
-            Cadena
+            Puntero,
+            Cadena,
+            TipoDato
         }
         private string content;
         private Tipos clasification;
@@ -36,19 +37,23 @@ namespace Sintaxis_1
             clasification = Tipos.Caracter;
         }
 
-        public void setContent(string content) {
+        public void setContent(string content)
+        {
             this.content = content;
         }
 
-        public void setClasification(Tipos clasification) {
+        public void setClasification(Tipos clasification)
+        {
             this.clasification = clasification;
         }
 
-        public string getContent() {
+        public string getContent()
+        {
             return content;
         }
 
-        public Tipos getClasification() {
+        public Tipos getClasification()
+        {
             return clasification;
         }
     }

@@ -306,6 +306,21 @@ namespace Sintaxis_1
             }
 
             setContent(buffer);
+
+            if (getClasification() == Tipos.Indentificador)
+            {
+                switch (getContent())
+                {
+                    case "char":
+                    case "int":
+                    case "float":
+                        setClasification(Tipos.TipoDato);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             log.WriteLine(buffer + " ---- " + getClasification());
         }
 
