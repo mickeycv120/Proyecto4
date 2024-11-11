@@ -16,119 +16,266 @@ namespace Sintaxis_1
         {
             log.WriteLine("Constructor lenguaje");
         }
-
+        // ? Cerradura epsilon
+        //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
-            Librerias();
-            Variables();
+            if (getContent() == "using")
+            {
+                Librerias();
+            }
+
+            if (getClasification() == Tipos.TipoDato)
+            {
+                Variables();
+            }
+
             Main();
         }
 
+        //Librerias -> using ListaLibrerias; Librerias?
         private void Librerias()
         {
             match("using");
             ListaLibrerias();
             match(";");
-            Librerias();
+
+            if (getContent() == "using")
+            {
+                Librerias();
+            }
         }
+
+        //Variables -> tipo_dato Lista_identificadores; Variables?
         private void Variables()
         {
+            match(Tipos.TipoDato);
+            ListaIdentificadores();
+            match(";");
 
+            if (getClasification() == Tipos.TipoDato)
+            {
+                Variables();
+            }
         }
+
+        //ListaLibrerias -> identificador (.ListaLibrerias)?
         private void ListaLibrerias()
         {
+            match(Tipos.Indentificador);
 
+            if (getContent() == ".")
+            {
+                match(".");
+                ListaLibrerias();
+            }
         }
+
+        // ListaIdentificadores -> identificador (,ListaIdentificadores)?
         private void ListaIdentificadores()
         {
+            match(Tipos.Indentificador);
 
+            if (getContent() == ",")
+            {
+                match(",");
+                ListaIdentificadores();
+            }
         }
+        // BloqueInstrucciones -> { listaIntrucciones? }
         private void BloqueInstrucciones()
         {
-
+            match("{");
+            ListaInstrucciones();
+            match("}");
         }
+        // ListaInstrucciones -> Instruccion ListaInstrucciones?
         private void ListaInstrucciones()
         {
-
+            Instruccion();
+            if (getContent() != "}")
+            {
+                ListaInstrucciones();
+            }
         }
+
+        // Instruccion -> console | If | While | do | For | Variables | Asignación
+        private void Instruccion()
+        {
+            if (getContent() == "Console")
+            {
+                console();
+            }
+            else if (getContent() == "if")
+            {
+                If();
+            }
+            else if (getContent() == "while")
+            {
+                While();
+            }
+            else if (getContent() == "do")
+            {
+                Do();
+            }
+            else if (getContent() == "for")
+            {
+                For();
+            }
+            else if (getClasification() == Tipos.TipoDato)
+            {
+                Variables();
+            }
+            else
+            {
+                Asignacion();
+            }
+        }
+        // Asignacion -> Identificador = Expresion | ID ++ | ID -- 
+        // ID Incremento Expresion;
+        private void Asignacion()
+        {
+            match(Tipos.Indentificador);
+            match("=");
+            Expresion();
+            /* match(";"); */
+        }
+        // If -> if (Condicion) bloqueInstrucciones | instruccion
+        // (else bloqueInstrucciones | instruccion)?
 
         private void If()
         {
+            match("if");
+            match("(");
+            Condicion();
+            match(")");
 
+            if (getContent() == "{")
+            {
+                BloqueInstrucciones();
+            }
+            else
+            {
+                Instruccion();
+            }
+            match(";");
+
+            if (getContent() == "else")
+            {
+                match("else");
+                if (getContent() == "{")
+                {
+                    BloqueInstrucciones();
+                }
+                else
+                {
+                    Instruccion();
+                }
+                match(";");
+            }
         }
-
-        private void For()
+        // Condicion -> Expresion operadorRelacional Expresion
+        private void Condicion()
         {
 
         }
-
+        // While -> while(Condicion) bloqueInstrucciones | instruccion
         private void While()
         {
 
         }
-
+        // Do -> do 
+        // bloqueInstrucciones | intruccion 
+        // while(Condicion);
         private void Do()
         {
 
         }
-
-        private void Instruccion()
+        // For -> for(Asignacion; Condicion; Asignacion) 
+        // BloqueInstrucciones | Intruccion
+        private void For()
         {
-
+            match("for");
+            match("(");
+            Asignacion();
+            match(";");
+            Condicion();
+            match(";");
+            Asignacion();
+            match(")");
+            if (getContent() == "{")
+            {
+                BloqueInstrucciones();
+            }
         }
-
-        private void Asignacion()
+        // Console -> Console.(WriteLine|Write) (cadena concatenaciones?);
+        private void console()
         {
-
+            match("(");
+            Console.WriteLine(getContent());
+            match(Tipos.Cadena);
         }
-
-        private void Console()
-        {
-
-        }
-
+        // Main -> static void Main(string[] args) BloqueInstrucciones 
         private void Main()
         {
-
+            match("static");
+            match("void");
+            match("Main");
+            match("(");
+            match("string");
+            match("[");
+            match("]");
+            match("args");
+            match(")");
+            BloqueInstrucciones();
+        }
+        // Expresion -> Termino MasTermino
+        private void Expresion()
+        {
+            Termino();
+            MasTermino();
+        }
+        // MasTermino -> (OperadorTermino Termino)?
+        private void MasTermino()
+        {
+            if (getClasification() == Tipos.OperadorTermino)
+            {
+                match(Tipos.OperadorTermino);
+                Termino();
+            }
+        }
+        // Termino -> Factor PorFactor
+        private void Termino()
+        {
+            Factor();
+            PorFactor();
+        }
+        // PorFactor -> (OperadorFactor Factor)?
+        private void PorFactor()
+        {
+            if (getClasification() == Tipos.OperadorFactor)
+            {
+                match(Tipos.OperadorFactor);
+                Factor();
+            }
+        }
+        // Factor -> numero | identificador | (Expresion)
+        private void Factor()
+        {
+            if (getClasification() == Tipos.Numero)
+            {
+                match(Tipos.Numero);
+            }
+            else if (getClasification() == Tipos.Indentificador)
+            {
+                match(Tipos.Indentificador);
+            }
+            else
+            {
+                match("(");
+                Expresion();
+                match(")");
+            }
         }
     }
 }
-/* 
-SNT = Producciones = Invocar el metodo
-ST  = Tokens (Contenido | Classification) = Invocar match
-
-public () Programa  -> Librerias? Variables? Main
-private (sin argumentos) Librerias -> using ListaLibrerias; Librerias?
-private (sin argumentos) Variables -> tipo_dato Lista_identificadores; Variables?
-private (sin argumentos) ListaLibrerias -> identificador (.ListaLibrerias)?
-private (sin argumentos) ListaIdentificadores -> identificador (,ListaIdentificadores)?
-private (sin argumentos) BloqueInstrucciones -> { listaIntrucciones? }
-private (sin argumentos) ListaInstrucciones -> Instruccion ListaInstrucciones?
-
-// * Instruccion -> Console | If | While | do | For | Variables | Asignación
-
-//* Asignacion -> Identificador = Expresion;
-
-//* If -> if (Condicion) bloqueInstrucciones | instruccion
-     (else bloqueInstrucciones | instruccion)?
-
-//* Condicion -> Expresion operadorRelacional Expresion
-
-//* While -> while(Condicion) bloqueInstrucciones | instruccion
-//* Do -> do 
-        bloqueInstrucciones | intruccion 
-      while(Condicion);
-
-//* For -> for(Asignacion Condicion; Asignacion) 
-       BloqueInstrucciones | Intruccion
-
-//* Console -> Console.(WriteLine|Write) (cadena concatenaciones?);
-
-//* Main      -> static void Main(string[] args) BloqueInstrucciones 
-
-// Expresion -> Termino MasTermino
-// MasTermino -> (OperadorTermino Termino)?
-// Termino -> Factor PorFactor
-// PorFactor -> (OperadorFactor Factor)?
-// Factor -> numero | identificador | (Expresion)
- */

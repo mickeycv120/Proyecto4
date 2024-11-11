@@ -27,7 +27,8 @@ namespace Sintaxis_1
             OperadorLogico,
             Puntero,
             Cadena,
-            TipoDato
+            TipoDato,
+            PalabraReservada
         }
         private string content;
         private Tipos clasification;

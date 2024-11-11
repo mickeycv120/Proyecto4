@@ -1,3 +1,27 @@
+/* 
+//SECTION - Requerimientos
+    //* 1) Indicar en el error léxico o sintáctico el número de línea y carácter de error
+    //* 2) En el log colocar el nombre del archivo a compilar, la fecha y la hora:
+           Ejemplo:
+           Programa: prueba.cpp
+           Fecha: 11/11/2024
+           Hora: 3:25 p.m
+    //* 3) Agregar el resto de asignaciones:
+        ID = Expresion
+        ID++
+        ID--
+        ID IncrementoTermino Expresion
+        ID IncrementoFactor Expresion
+        ID = Console.Read()
+        ID = Console.ReadLine()
+    //* 4) Emular el Console.Write() y Console.WriteLine()
+    //* 5) Emular Console.Read() y Conesole.ReadLine()
+
+//!SECTION
+
+ */
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -316,12 +340,21 @@ namespace Sintaxis_1
                     case "float":
                         setClasification(Tipos.TipoDato);
                         break;
+                    case "if":
+                    case "else":
+                    case "do":
+                    case "while":
+                    case "for":
+                        setClasification(Tipos.PalabraReservada);
+                        break;
                     default:
                         break;
                 }
             }
-
-            log.WriteLine(buffer + " ---- " + getClasification());
+            if (!EndOfFile())
+            {
+                log.WriteLine(buffer + " ---- " + getClasification());
+            }
         }
 
         public void GetAllTokens()
