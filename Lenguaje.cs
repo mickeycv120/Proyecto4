@@ -172,13 +172,15 @@ namespace Sintaxis_1
                     Instruccion();
                 }
                 match(";");
+                match("}");
             }
         }
         // Condicion -> Expresion operadorRelacional Expresion
         private void Condicion()
         {
             Expresion();
-
+            match(Tipos.OperadorRelacional);
+            Expresion();
         }
         // While -> while(Condicion) bloqueInstrucciones | instruccion
         private void While()
