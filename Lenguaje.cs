@@ -177,19 +177,41 @@ namespace Sintaxis_1
         // Condicion -> Expresion operadorRelacional Expresion
         private void Condicion()
         {
+            Expresion();
 
         }
         // While -> while(Condicion) bloqueInstrucciones | instruccion
         private void While()
         {
-
+            match("while");
+            Condicion();
+            if (getContent() == "{")
+            {
+                BloqueInstrucciones();
+            }
+            else
+            {
+                Instruccion();
+            }
         }
         // Do -> do 
         // bloqueInstrucciones | intruccion 
         // while(Condicion);
         private void Do()
         {
-
+            match("do");
+            if (getContent() == "{")
+            {
+                BloqueInstrucciones();
+            }
+            else
+            {
+                Instruccion();
+            }
+            match("while");
+            match("(");
+            Condicion();
+            match(")");
         }
         // For -> for(Asignacion; Condicion; Asignacion) 
         // BloqueInstrucciones | Intruccion
