@@ -1,1 +1,6 @@
-Error File prueba.cpp doesn´t exist
+if ---- PalabraReservada
+( ---- Caracter
+a ---- Identificador
+> ---- OperadorRelacional
+) ---- Caracter
+{ ---- InicioBloque
