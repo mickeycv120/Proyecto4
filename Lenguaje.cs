@@ -25,7 +25,7 @@ namespace Sintaxis_1
                 Librerias();
             }
 
-            if (getClasification() == Tipos.TipoDato)
+            if (getClasificacion() == Tipos.TipoDato)
             {
                 Variables();
             }
@@ -53,7 +53,7 @@ namespace Sintaxis_1
             ListaIdentificadores();
             match(";");
 
-            if (getClasification() == Tipos.TipoDato)
+            if (getClasificacion() == Tipos.TipoDato)
             {
                 Variables();
             }
@@ -62,7 +62,7 @@ namespace Sintaxis_1
         //ListaLibrerias -> identificador (.ListaLibrerias)?
         private void ListaLibrerias()
         {
-            match(Tipos.Indentificador);
+            match(Tipos.Identificador);
 
             if (getContent() == ".")
             {
@@ -74,7 +74,7 @@ namespace Sintaxis_1
         // ListaIdentificadores -> identificador (,ListaIdentificadores)?
         private void ListaIdentificadores()
         {
-            match(Tipos.Indentificador);
+            match(Tipos.Identificador);
 
             if (getContent() == ",")
             {
@@ -122,7 +122,7 @@ namespace Sintaxis_1
             {
                 For();
             }
-            else if (getClasification() == Tipos.TipoDato)
+            else if (getClasificacion() == Tipos.TipoDato)
             {
                 Variables();
             }
@@ -135,10 +135,10 @@ namespace Sintaxis_1
         // ID Incremento Expresion;
         private void Asignacion()
         {
-            match(Tipos.Indentificador);
+            match(Tipos.Identificador);
             match("=");
             Expresion();
-            /* match(";"); */
+            match(";");
         }
         // If -> if (Condicion) bloqueInstrucciones | instruccion
         // (else bloqueInstrucciones | instruccion)?
@@ -149,7 +149,6 @@ namespace Sintaxis_1
             match("(");
             Condicion();
             match(")");
-
             if (getContent() == "{")
             {
                 BloqueInstrucciones();
@@ -158,7 +157,6 @@ namespace Sintaxis_1
             {
                 Instruccion();
             }
-            match(";");
 
             if (getContent() == "else")
             {
@@ -171,10 +169,9 @@ namespace Sintaxis_1
                 {
                     Instruccion();
                 }
-                match(";");
-                match("}");
             }
         }
+
         // Condicion -> Expresion operadorRelacional Expresion
         private void Condicion()
         {
@@ -186,7 +183,9 @@ namespace Sintaxis_1
         private void While()
         {
             match("while");
+            match("(");
             Condicion();
+            match(")");
             if (getContent() == "{")
             {
                 BloqueInstrucciones();
@@ -214,6 +213,7 @@ namespace Sintaxis_1
             match("(");
             Condicion();
             match(")");
+            match(";");
         }
         // For -> for(Asignacion; Condicion; Asignacion) 
         // BloqueInstrucciones | Intruccion
@@ -235,6 +235,7 @@ namespace Sintaxis_1
         // Console -> Console.(WriteLine|Write) (cadena concatenaciones?);
         private void console()
         {
+
             match("(");
             Console.WriteLine(getContent());
             match(Tipos.Cadena);
@@ -262,7 +263,7 @@ namespace Sintaxis_1
         // MasTermino -> (OperadorTermino Termino)?
         private void MasTermino()
         {
-            if (getClasification() == Tipos.OperadorTermino)
+            if (getClasificacion() == Tipos.OperadorTermino)
             {
                 match(Tipos.OperadorTermino);
                 Termino();
@@ -277,7 +278,7 @@ namespace Sintaxis_1
         // PorFactor -> (OperadorFactor Factor)?
         private void PorFactor()
         {
-            if (getClasification() == Tipos.OperadorFactor)
+            if (getClasificacion() == Tipos.OperadorFactor)
             {
                 match(Tipos.OperadorFactor);
                 Factor();
@@ -286,13 +287,13 @@ namespace Sintaxis_1
         // Factor -> numero | identificador | (Expresion)
         private void Factor()
         {
-            if (getClasification() == Tipos.Numero)
+            if (getClasificacion() == Tipos.Numero)
             {
                 match(Tipos.Numero);
             }
-            else if (getClasification() == Tipos.Indentificador)
+            else if (getClasificacion() == Tipos.Identificador)
             {
-                match(Tipos.Indentificador);
+                match(Tipos.Identificador);
             }
             else
             {

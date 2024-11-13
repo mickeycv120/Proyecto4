@@ -28,15 +28,15 @@ namespace Sintaxis_1
             }
         }
 
-        public void match(Tipos clasification)
+        public void match(Tipos clasificacion)
         {
-            if (clasification == getClasification())
+            if (clasificacion == getClasificacion())
             {
                 NextToken();
             }
             else
             {
-                throw new Error("Sintaxis: se espera un " + clasification);
+                throw new Error("Sintaxis: se espera un " + clasificacion);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Sintaxis_1
     {
         public enum Tipos
         {
-            Indentificador,
+            Identificador,
             Numero,
             Caracter,
             FinSentencia,
@@ -43,7 +43,7 @@ namespace Sintaxis_1
             this.content = content;
         }
 
-        public void setClasification(Tipos clasification)
+        public void setClasificacion(Tipos clasification)
         {
             this.clasification = clasification;
         }
@@ -53,7 +53,7 @@ namespace Sintaxis_1
             return content;
         }
 
-        public Tipos getClasification()
+        public Tipos getClasificacion()
         {
             return clasification;
         }

@@ -33,7 +33,7 @@ namespace Sintaxis_1
 {
     public class Lexico : Token, IDisposable
     {
-        int lines;
+        int linea;
         const int F = -1;
         const int E = -2;
         StreamReader archivo;
@@ -89,7 +89,7 @@ namespace Sintaxis_1
 
             if (File.Exists("./main.cpp"))
             {
-                lines = 1;
+                linea = 1;
                 archivo = new StreamReader("./main.cpp");
             }
             else
@@ -123,7 +123,7 @@ namespace Sintaxis_1
                 AutoFlush = true
             };
 
-            lines = 1;
+            linea = 1;
             this.archivo = new StreamReader("./" + archivo);
         }
 
@@ -136,139 +136,67 @@ namespace Sintaxis_1
 
         private int Column(char c)
         {
-            if (c == '\n')
+            return c switch
             {
-                return 23;
-            }
-            else if (EndOfFile())
-            {
-                return 24;
-            }
-            else if (char.IsWhiteSpace(c))
-            {
-                return 0;
-            }
-            else if (char.ToLower(c) == 'e')
-            {
-                return 4;
-            }
-            else if (char.IsLetter(c))
-            {
-                return 1;
-            }
-            else if (char.IsDigit(c))
-            {
-                return 2;
-            }
-            else if (c == '.')
-            {
-                return 3;
-            }
-            else if (c == '+')
-            {
-                return 5;
-            }
-            else if (c == '-')
-            {
-                return 6;
-            }
-            else if (c == ';')
-            {
-                return 7;
-            }
-            else if (c == '{')
-            {
-                return 8;
-            }
-            else if (c == '}')
-            {
-                return 9;
-            }
-            else if (c == '?')
-            {
-                return 10;
-            }
-            else if (c == '=')
-            {
-                return 11;
-            }
-            else if (c == '*')
-            {
-                return 12;
-            }
-            else if (c == '%')
-            {
-                return 13;
-            }
-            else if (c == '&')
-            {
-                return 14;
-            }
-            else if (c == '|')
-            {
-                return 15;
-            }
-            else if (c == '!')
-            {
-                return 16;
-            }
-            else if (c == '<')
-            {
-                return 17;
-            }
-            else if (c == '>')
-            {
-                return 18;
-            }
-            else if (c == '"')
-            {
-                return 19;
-            }
-            else if (c == '\'')
-            {
-                return 20;
-            }
-            else if (c == '#')
-            {
-                return 21;
-            }
-            else if (c == '/')
-            {
-                return 22;
-            }
-            return 25;
+                _ when char.IsWhiteSpace(c) => 0,
+                _ when char.IsDigit(c) => 2,
+                '.' => 3,
+                'e' or 'E' => 4,
+                _ when char.IsLetter(c) => 1,
+                '+' => 5,
+                '-' => 6,
+                ';' => 7,
+                '{' => 8,
+                '}' => 9,
+                '?' => 10,
+                '=' => 11,
+                '*' => 12,
+                '%' => 13,
+                '&' => 14,
+                '|' => 15,
+                '!' => 16,
+                '<' => 17,
+                '>' => 18,
+                '"' => 19,
+                '\'' => 20,
+                '#' => 21,
+                '/' => 22,
+                _ when c == '\n' => 23,
+                _ when finArchivo() => 24,
+                _ => 25
+            };
         }
 
         private void Classify(int state)
         {
             switch (state)
             {
-                case 1: setClasification(Tipos.Indentificador); break;
-                case 2: setClasification(Tipos.Numero); break;
-                case 8: setClasification(Tipos.FinSentencia); break;
-                case 9: setClasification(Tipos.InicioBloque); break;
-                case 10: setClasification(Tipos.FinBloque); break;
-                case 11: setClasification(Tipos.OperadorTernario); break;
-                case 12:
-                case 14: setClasification(Tipos.OperadorTermino); break;
-                case 13: setClasification(Tipos.IncrementoTermino); break;
-                case 15: setClasification(Tipos.Puntero); break;
-                case 16:
-                case 34: setClasification(Tipos.OperadorFactor); break;
-                case 17: setClasification(Tipos.IncrementoFactor); break;
-                case 18:
-                case 20:
-                case 29:
-                case 32:
-                case 33: setClasification(Tipos.Caracter); break;
-                case 19:
-                case 21: setClasification(Tipos.OperadorLogico); break;
-                case 22:
-                case 24:
-                case 25:
-                case 26: setClasification(Tipos.OperadorRelacional); break;
-                case 23: setClasification(Tipos.Asignacion); break;
-                case 27: setClasification(Tipos.Cadena); break;
+                case 1: setClasificacion(Tipos.Identificador); break;
+                case 2: setClasificacion(Tipos.Numero); break;
+                case 8: setClasificacion(Tipos.FinSentencia); break;
+                case 9: setClasificacion(Tipos.InicioBloque); break;
+                case 10: setClasificacion(Tipos.FinBloque); break;
+                case 11: setClasificacion(Tipos.OperadorTernario); break;
+                case 12: setClasificacion(Tipos.OperadorTermino); break;
+                case 13: setClasificacion(Tipos.OperadorTermino); break;
+                case 14: setClasificacion(Tipos.OperadorTermino); break;
+                case 15: setClasificacion(Tipos.Puntero); break;
+                case 16: setClasificacion(Tipos.OperadorFactor); break;
+                case 17: setClasificacion(Tipos.IncrementoFactor); break;
+                case 18: setClasificacion(Tipos.Caracter); break;
+                case 19: setClasificacion(Tipos.OperadorLogico); break;
+                case 20: setClasificacion(Tipos.Caracter); break;
+                case 21: setClasificacion(Tipos.OperadorLogico); break;
+                case 22: setClasificacion(Tipos.OperadorRelacional); break;
+                case 23: setClasificacion(Tipos.Asignacion); break;
+                case 24: setClasificacion(Tipos.OperadorRelacional); break;
+                case 25: setClasificacion(Tipos.OperadorRelacional); break;
+                case 26: setClasificacion(Tipos.OperadorRelacional); break;
+                case 27: setClasificacion(Tipos.Cadena); break;
+                case 29: setClasificacion(Tipos.Caracter); break;
+                case 32: setClasificacion(Tipos.Caracter); break;
+                case 33: setClasificacion(Tipos.Caracter); break;
+                case 34: setClasificacion(Tipos.OperadorFactor); break;
             }
         }
         public void NextToken()
@@ -291,7 +219,7 @@ namespace Sintaxis_1
 
                     if (c == '\n')
                     {
-                        lines++;
+                        linea++;
                     }
 
                     if (state > 0)
@@ -309,51 +237,51 @@ namespace Sintaxis_1
             {
                 string message;
 
-                if (getClasification() == Tipos.Numero)
+                if (getClasificacion() == Tipos.Numero)
                 {
-                    message = "Lexical, a digit is missing";
+                    message = "Léxico, se espera un dígito";
                 }
-                else if (getClasification() == Tipos.Cadena)
+                else if (getClasificacion() == Tipos.Cadena)
                 {
-                    message = "Lexical, unclosed string";
+                    message = "Léxico, se espera a que se cierre la cadena";
                 }
-                else if (getClasification() == Tipos.Caracter)
+                else if (getClasificacion() == Tipos.Caracter)
                 {
-                    message = "Lexical, invalid character";
+                    message = "Léxico, caracter invalido";
                 }
                 else
                 {
-                    message = "Lexical, Unclosed comment";
+                    message = "No se ha cerrado el comentario";
                 }
 
-                throw new Error(message, log, lines);
+                throw new Error(message, log, linea);
             }
 
             setContent(buffer);
 
-            if (getClasification() == Tipos.Indentificador)
+            if (getClasificacion() == Tipos.Identificador)
             {
                 switch (getContent())
                 {
                     case "char":
                     case "int":
                     case "float":
-                        setClasification(Tipos.TipoDato);
+                        setClasificacion(Tipos.TipoDato);
                         break;
                     case "if":
                     case "else":
                     case "do":
                     case "while":
                     case "for":
-                        setClasification(Tipos.PalabraReservada);
+                        setClasificacion(Tipos.PalabraReservada);
                         break;
                     default:
                         break;
                 }
             }
-            if (!EndOfFile())
+            if (!finArchivo())
             {
-                log.WriteLine(buffer + " ---- " + getClasification());
+                log.WriteLine(buffer + " ---- " + getClasificacion());
             }
         }
 
@@ -365,7 +293,7 @@ namespace Sintaxis_1
             }
         }
 
-        public bool EndOfFile()
+        public bool finArchivo()
         {
             return archivo.EndOfStream;
         }

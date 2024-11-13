@@ -12,3 +12,4 @@ D:\C#\Proyecto4\obj\Debug\net8.0\refint\Proyecto4.dll
 D:\C#\Proyecto4\obj\Debug\net8.0\Proyecto4.pdb
 D:\C#\Proyecto4\obj\Debug\net8.0\Proyecto4.genruntimeconfig.cache
 D:\C#\Proyecto4\obj\Debug\net8.0\ref\Proyecto4.dll
+D:\C#\Proyecto4\obj\Debug\net8.0\Proyecto4.sourcelink.json

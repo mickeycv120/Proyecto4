@@ -1,0 +1,6 @@
+if ---- PalabraReservada
+( ---- Caracter
+a ---- Identificador
+> ---- OperadorRelacional
+) ---- Caracter
+{ ---- InicioBloque
