@@ -138,6 +138,14 @@ namespace Sintaxis_1
             match(Tipos.Identificador);
             match("=");
             Expresion();
+            if (getContent() == "++")
+            {
+                match("++");
+            }
+            else if (getContent() == "--")
+            {
+                match("--");
+            }
             match(";");
         }
         // If -> if (Condicion) bloqueInstrucciones | instruccion
@@ -235,11 +243,30 @@ namespace Sintaxis_1
         // Console -> Console.(WriteLine|Write) (cadena concatenaciones?);
         private void console()
         {
-
+            match("Console");
+            match(".");
+            if (getContent() == "WriteLine")
+            {
+                match("WriteLine");
+            }
+            else if (getContent() == "Write")
+            {
+                match("Write");
+            }
             match("(");
             Console.WriteLine(getContent());
             match(Tipos.Cadena);
+            Concatenaciones();
+            match(")");
+            match(";");
         }
+
+        public void Concatenaciones()
+        {
+
+        }
+
+
         // Main -> static void Main(string[] args) BloqueInstrucciones 
         private void Main()
         {
