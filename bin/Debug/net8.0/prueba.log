@@ -1,6 +1,8 @@
 if ---- PalabraReservada
+Constructor lenguaje
 ( ---- Caracter
 a ---- Identificador
 > ---- OperadorRelacional
 ) ---- Caracter
 { ---- InicioBloque
+} ---- FinBloque

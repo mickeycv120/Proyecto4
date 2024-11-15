@@ -86,7 +86,10 @@ namespace Sintaxis_1
         private void BloqueInstrucciones()
         {
             match("{");
-            ListaInstrucciones();
+            if (getContent() != "}")
+            {
+                ListaInstrucciones();
+            }
             match("}");
         }
         // ListaInstrucciones -> Instruccion ListaInstrucciones?
