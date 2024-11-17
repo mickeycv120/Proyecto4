@@ -75,12 +75,3 @@ if ---- PalabraReservada
 { ---- InicioBloque
 Console ---- Identificador
 . ---- Caracter
-Write ---- Identificador
-( ---- Caracter
-"Ingrese el valor de d = " ---- Cadena
-) ---- Caracter
-; ---- FinSentencia
-d ---- Identificador
-= ---- Asignacion
-Console ---- Identificador
-. ---- Caracter
