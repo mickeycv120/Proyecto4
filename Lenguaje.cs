@@ -105,34 +105,66 @@ namespace Sintaxis_1
         // Instruccion -> console | If | While | do | For | Variables | Asignación
         private void Instruccion()
         {
-            if (getContent() == "Console")
+
+            //ANCHOR Prueba con switch
+
+            switch (getContent())
             {
-                console();
+                case "console":
+                    console();
+                    break;
+                case "if":
+                    If();
+                    break;
+                case "while":
+                    While();
+                    break;
+                case "do":
+                    Do();
+                    break;
+                case "for":
+                    For();
+                    break;
+                default:
+                    if (getClasificacion() == Tipos.TipoDato)
+                    {
+                        Variables();
+                    }
+                    else
+                    {
+                        Asignacion();
+                    }
+                    break;
             }
-            else if (getContent() == "if")
-            {
-                If();
-            }
-            else if (getContent() == "while")
-            {
-                While();
-            }
-            else if (getContent() == "do")
-            {
-                Do();
-            }
-            else if (getContent() == "for")
-            {
-                For();
-            }
-            else if (getClasificacion() == Tipos.TipoDato)
-            {
-                Variables();
-            }
-            else
-            {
-                Asignacion();
-            }
+
+            /* if (getContent() == "Console")
+           {
+               console();
+           }
+           else if (getContent() == "if")
+           {
+               If();
+           }
+           else if (getContent() == "while")
+           {
+               While();
+           }
+           else if (getContent() == "do")
+           {
+               Do();
+           }
+           else if (getContent() == "for")
+           {
+               For();
+           }
+           else if (getClasificacion() == Tipos.TipoDato)
+           {
+               Variables();
+           }
+           else
+           {
+               Asignacion();
+           } */
         }
         // Asignacion -> Identificador = Expresion | ID ++ | ID -- 
         // ID Incremento Expresion;

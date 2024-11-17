@@ -246,28 +246,39 @@ namespace Sintaxis_1
 
             while (estado >= 0)
             {
+                if (estado == 0)
+                {
+                    buffer = "";
+                }
 
                 c = (char)archivo.Peek();
-
                 estado = TRAND[estado, Column(c)];
                 Clasifica(estado);
 
                 if (estado >= 0)
                 {
                     archivo.Read();
-
                     if (c == '\n')
                     {
                         linea++;
                     }
 
+                    if (c == '/' && (char)archivo.Peek() == '/')
+                    {
+                        while (c != '\n' && !finArchivo())
+                        {
+                            archivo.Read();
+                            c = (char)archivo.Peek();
+                        }
+
+                        estado = 0;
+                        buffer = "";
+                        continue;
+                    }
+
                     if (estado > 0)
                     {
                         buffer += c;
-                    }
-                    else
-                    {
-                        buffer = "";
                     }
                 }
             }
