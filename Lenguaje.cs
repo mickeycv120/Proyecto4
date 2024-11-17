@@ -173,14 +173,28 @@ namespace Sintaxis_1
             match(Tipos.Identificador);
             match("=");
             Expresion();
-            if (getContent() == "++")
+
+            //ANCHOR Prueba con switch
+            switch (getContent())
+            {
+                case "++":
+                    match("++");
+                    break;
+                case "--":
+                    match("--");
+                    break;
+            }
+
+            /* if (getContent() == "++")
             {
                 match("++");
             }
             else if (getContent() == "--")
             {
                 match("--");
-            }
+            } */
+
+
             match(";");
         }
         // If -> if (Condicion) bloqueInstrucciones | instruccion
@@ -280,14 +294,15 @@ namespace Sintaxis_1
         {
             match("Console");
             match(".");
-            if (getContent() == "WriteLine")
+            match(getContent() == "WriteLine" ? "WriteLine" : "Write");
+            /* if (getContent() == "WriteLine")
             {
                 match("WriteLine");
             }
             else if (getContent() == "Write")
             {
                 match("Write");
-            }
+            } */
             match("(");
             Console.WriteLine(getContent());
             match(Tipos.Cadena);
@@ -349,7 +364,22 @@ namespace Sintaxis_1
         // Factor -> numero | identificador | (Expresion)
         private void Factor()
         {
-            if (getClasificacion() == Tipos.Numero)
+            switch (getClasificacion())
+            {
+                case Tipos.Numero:
+                    match(Tipos.Numero);
+                    break;
+                case Tipos.Identificador:
+                    match(Tipos.Identificador);
+                    break;
+                default:
+                    match("(");
+                    Expresion();
+                    match(")");
+                    break;
+            }
+
+            /* if (getClasificacion() == Tipos.Numero)
             {
                 match(Tipos.Numero);
             }
@@ -362,7 +392,7 @@ namespace Sintaxis_1
                 match("(");
                 Expresion();
                 match(")");
-            }
+            } */
         }
     }
 }
