@@ -76,8 +76,8 @@ namespace Sintaxis_1
             {  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F  },
             {  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F, 17, 36,  F,  F,  F,  F,  F,  F,  F,  F,  F, 35,  F,  F,  F  },
             { 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  0, 35, 35  },
-            { 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 37, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36  },
-            { 36, 36, 36, 36, 36, 36, 35, 36, 36, 36, 36, 36, 37, 36, 36, 36, 36, 36, 36, 36, 36, 36,  0, 36, 36, 36  }
+            { 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 37, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  E, 36  },
+            { 36, 36, 36, 36, 36, 36, 35, 36, 36, 36, 36, 36, 37, 36, 36, 36, 36, 36, 36, 36, 36, 36,  0, 36,  E, 36  }
         };
         public Lexico()
         {
@@ -94,16 +94,15 @@ namespace Sintaxis_1
             }
             else
             {
-                throw new Error("File main.cpp doesn´t exists", log);
+                throw new Error("File main.cpp no existe", log);
             }
         }
 
         public Lexico(string archivo)
         {
-
             if (!(Path.GetExtension(archivo) == ".cpp"))
             {
-                throw new Error("File doesn´t have correct extension .cpp");
+                throw new Error("Archivo no tiene la extensión .cpp", log, linea);
             }
 
             string archivoName = Path.GetFileNameWithoutExtension(archivo);
@@ -115,7 +114,7 @@ namespace Sintaxis_1
 
             if (!File.Exists(archivo))
             {
-                throw new Error("File " + archivo + " doesn´t exist", log);
+                throw new Error("Archivo " + archivo + " no existe", log);
             }
 
             ensamblador = new StreamWriter("./" + archivoName + ".asm")
@@ -165,11 +164,51 @@ namespace Sintaxis_1
                 _ when finArchivo() => 24,
                 _ => 25
             };
+
+            /*  //ANCHOR - IF en orden
+            
+            if (char.IsWhiteSpace(c))
+            {
+                return 0;
+            }
+            else if (char.IsLetter(c))
+            {
+                return 1;
+            }
+            else if (char.IsDigit(c))
+            {
+                return 2;
+            } */
+            /* else if (c == '.')
+            {
+                return 3;
+            }
+            else if (char.ToLower(c) == 'e')
+            {
+                return 4;
+            }
+            else if(c=='+'){
+                return 5;
+            }
+            else if(c=='-'){
+                return 6;
+            }
+            else if(c==';'){
+                return 7;
+            }
+            else if(c=='{'){
+                return 8;
+            }
+            else if(c=='}'){
+                return 9;
+            }
+
+ */
         }
 
-        private void Classify(int state)
+        private void Clasifica(int estado)
         {
-            switch (state)
+            switch (estado)
             {
                 case 1: setClasificacion(Tipos.Identificador); break;
                 case 2: setClasificacion(Tipos.Numero); break;
@@ -203,17 +242,17 @@ namespace Sintaxis_1
         {
             char c;
             string buffer = "";
-            int state = 0;
+            int estado = 0;
 
-            while (state >= 0)
+            while (estado >= 0)
             {
 
                 c = (char)archivo.Peek();
 
-                state = TRAND[state, Column(c)];
-                Classify(state);
+                estado = TRAND[estado, Column(c)];
+                Clasifica(estado);
 
-                if (state >= 0)
+                if (estado >= 0)
                 {
                     archivo.Read();
 
@@ -222,7 +261,7 @@ namespace Sintaxis_1
                         linea++;
                     }
 
-                    if (state > 0)
+                    if (estado > 0)
                     {
                         buffer += c;
                     }
@@ -233,7 +272,7 @@ namespace Sintaxis_1
                 }
             }
 
-            if (state == E)
+            if (estado == E)
             {
                 string message;
 
