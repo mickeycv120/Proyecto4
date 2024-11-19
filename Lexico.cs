@@ -99,8 +99,7 @@ namespace Sintaxis_1
 
             string fecha = DateTime.Now.ToString("dd/MM/yyyy");
             string hora = DateTime.Now.ToString("hh:mm tt");
-            log.WriteLine($"Fecha: {fecha}");
-            log.WriteLine($"Hora: {hora} \n");
+            log.WriteLine($"Fecha: {fecha} \nHora: {hora} \nArchivo: {archivo}");
         }
 
         public Lexico(string archivo)
@@ -132,8 +131,7 @@ namespace Sintaxis_1
 
             string fecha = DateTime.Now.ToString("dd/MM/yyyy");
             string hora = DateTime.Now.ToString("hh:mm tt");
-            log.WriteLine($"Fecha: {fecha}");
-            log.WriteLine($"Hora: {hora} \n");
+            log.WriteLine($"Fecha: {fecha} \nHora: {hora} \nArchivo: {archivo}");
         }
 
         public void Dispose()
