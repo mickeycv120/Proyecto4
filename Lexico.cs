@@ -96,6 +96,11 @@ namespace Sintaxis_1
             {
                 throw new Error("File main.cpp no existe", log);
             }
+
+            string fecha = DateTime.Now.ToString("dd/MM/yyyy");
+            string hora = DateTime.Now.ToString("hh:mm tt");
+            log.WriteLine($"Fecha: {fecha}");
+            log.WriteLine($"Hora: {hora} \n");
         }
 
         public Lexico(string archivo)
@@ -124,6 +129,11 @@ namespace Sintaxis_1
 
             linea = 1;
             this.archivo = new StreamReader("./" + archivo);
+
+            string fecha = DateTime.Now.ToString("dd/MM/yyyy");
+            string hora = DateTime.Now.ToString("hh:mm tt");
+            log.WriteLine($"Fecha: {fecha}");
+            log.WriteLine($"Hora: {hora} \n");
         }
 
         public void Dispose()
@@ -331,7 +341,7 @@ namespace Sintaxis_1
             }
             if (!finArchivo())
             {
-                log.WriteLine(buffer + " ---- " + getClasificacion());
+                log.WriteLine(buffer + " = " + getClasificacion());
             }
         }
 

@@ -110,7 +110,7 @@ namespace Sintaxis_1
 
             switch (getContent())
             {
-                case "console":
+                case "Console":
                     console();
                     break;
                 case "if":
@@ -133,6 +133,7 @@ namespace Sintaxis_1
                     else
                     {
                         Asignacion();
+                        match(";");
                     }
                     break;
             }
@@ -171,17 +172,25 @@ namespace Sintaxis_1
         private void Asignacion()
         {
             match(Tipos.Identificador);
-            match("=");
-            Expresion();
 
             //ANCHOR Prueba con switch
             switch (getContent())
             {
+                case "=":
+                    match("=");
+                    Expresion();
+                    break;
                 case "++":
                     match("++");
                     break;
                 case "--":
                     match("--");
+                    break;
+                case "+=":
+                    match("+=");
+                    Expresion();
+                    break;
+                default:
                     break;
             }
 
@@ -193,9 +202,6 @@ namespace Sintaxis_1
             {
                 match("--");
             } */
-
-
-            match(";");
         }
         // If -> if (Condicion) bloqueInstrucciones | instruccion
         // (else bloqueInstrucciones | instruccion)?

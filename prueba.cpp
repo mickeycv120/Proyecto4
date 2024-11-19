@@ -21,7 +21,7 @@ static void Main(string[] args)
             {
                 Console.Write("*");
             }
-            Console.WriteLine();
+            Console.WriteLine("Joy");
             i = 0;
             do
             {
@@ -29,7 +29,7 @@ static void Main(string[] args)
                 i++;
             } while (i < d);
             i = 0;
-            Console.WriteLine();
+            Console.WriteLine("Efrain");
             while (i < d)
             {
                 Console.Write("-");
@@ -49,7 +49,7 @@ static void Main(string[] args)
                     else
                         Console.Write("-");
                 }
-                Console.Write();
+                Console.Write("Maria");
             }
         }
     }
