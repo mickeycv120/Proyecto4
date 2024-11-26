@@ -48,7 +48,7 @@ namespace Sintaxis_1
             this.clasification = clasification;
         }
 
-        public string getContent()
+        public string getContenido()
         {
             return content;
         }

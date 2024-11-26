@@ -7,24 +7,27 @@ namespace Sintaxis_1
 {
     public class Sintaxis : Lexico
     {
+
+        private int linea;
+
         public Sintaxis() : base()
         {
             NextToken();
         }
 
-        public Sintaxis(string name) : base(name)
+        public Sintaxis(string nombre) : base(nombre)
         {
             NextToken();
         }
-        public void match(string content)
+        public void match(string contenido)
         {
-            if (content == getContent())
+            if (getContent() == contenido)
             {
                 NextToken();
             }
             else
             {
-                throw new Error("Sintaxis: se espera un " + content);
+                throw new Error($"Sintaxis: se espera un {contenido} en la linea");
             }
         }
 

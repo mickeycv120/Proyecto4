@@ -1,27 +1,3 @@
-/* 
-//SECTION - Requerimientos
-    //* 1) Indicar en el error léxico o sintáctico el número de línea y carácter de error
-    //* 2) En el log colocar el nombre del archivo a compilar, la fecha y la hora:
-           Ejemplo:
-           Programa: prueba.cpp
-           Fecha: 11/11/2024
-           Hora: 3:25 p.m
-    //* 3) Agregar el resto de asignaciones:
-        ID = Expresion
-        ID++
-        ID--
-        ID IncrementoTermino Expresion
-        ID IncrementoFactor Expresion
-        ID = Console.Read()
-        ID = Console.ReadLine()
-    //* 4) Emular el Console.Write() y Console.WriteLine()
-    //* 5) Emular Console.Read() y Conesole.ReadLine()
-
-//!SECTION
-
- */
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +9,7 @@ namespace Sintaxis_1
 {
     public class Lexico : Token, IDisposable
     {
-        int linea;
+        public int linea;
         const int F = -1;
         const int E = -2;
         StreamReader archivo;
@@ -131,7 +107,7 @@ namespace Sintaxis_1
 
             string fecha = DateTime.Now.ToString("dd/MM/yyyy");
             string hora = DateTime.Now.ToString("hh:mm tt");
-            log.WriteLine($"Fecha: {fecha} \nHora: {hora} \nArchivo: {archivo}");
+            log.WriteLine($"Fecha: {fecha} \nHora: {hora} \nArchivo: {archivo} \n");
         }
 
         public void Dispose()
@@ -319,7 +295,7 @@ namespace Sintaxis_1
 
             if (getClasificacion() == Tipos.Identificador)
             {
-                switch (getContent())
+                switch (getContenido())
                 {
                     case "char":
                     case "int":
