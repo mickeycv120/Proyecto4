@@ -5,7 +5,8 @@
     //* 3) Evaluar las expresiones matemáticas
     //* 4) Levantar si en el Console.ReadLine() no ingresan números
     //* 5) Modificar la variable con el resto de operadores (Incremento de factor y término)
-    //* 6) Conficioón
+    //* 6) Hacer que funcione el else
+
 
 
 //!SECTION
@@ -46,10 +47,10 @@ namespace Sintaxis_1
 
         private void displayList()
         {
-            logger.WriteLine("Lista de Variables");
+            log.WriteLine("Lista de Variables");
             foreach (Variable elemento in l)
             {
-                logger.WriteLine($"{elemento.getNombre()} {elemento.getTipoDato()} {elemento.getValor()}");
+                log.WriteLine($"{elemento.getNombre()} {elemento.getTipoDato()} {elemento.getValor()}");
             }
         }
         // ? Cerradura epsilon
@@ -61,7 +62,7 @@ namespace Sintaxis_1
                 Librerias();
             }
 
-            if (getClasification() == Tipos.TipoDato)
+            if (getClasificacion() == Tipos.TipoDato)
             {
                 Variables();
             }
@@ -98,7 +99,7 @@ namespace Sintaxis_1
             ListaIdentificadores(t);
             match(";");
 
-            if (getClasification() == Tipos.TipoDato)
+            if (getClasificacion() == Tipos.TipoDato)
             {
                 Variables();
             }
@@ -107,7 +108,7 @@ namespace Sintaxis_1
         //ListaLibrerias -> identificador (.ListaLibrerias)?
         private void ListaLibrerias()
         {
-            match(Tipos.Indentificador);
+            match(Tipos.Identificador);
 
             if (getContenido() == ".")
             {
@@ -121,11 +122,12 @@ namespace Sintaxis_1
         {
             if (l.Find(variable => variable.getNombre() == getContenido()) != null)
             {
-                throw new Error("Sintaxis: la variable " + getContenido() + " ya existe", logger, line, column);
+                /* throw new Error("Sintaxis: la variable " + getContenido() + " ya existe", log, linea, column); */
+                throw new Error("Sintaxis: la variable " + getContenido() + " ya existe", log, linea);
             }
 
             l.Add(new Variable(t, getContenido()));
-            match(Tipos.Indentificador);
+            match(Tipos.Identificador);
 
 
             if (getContenido() == "=")
@@ -141,36 +143,36 @@ namespace Sintaxis_1
             }
         }
         // BloqueInstrucciones -> { listaIntrucciones? }
-        private void BloqueInstrucciones()
+        private void BloqueInstrucciones(bool excecute)
         {
             match("{");
             if (getContenido() != "}")
             {
-                ListaInstrucciones();
+                ListaInstrucciones(excecute);
             }
             match("}");
         }
         // ListaInstrucciones -> Instruccion ListaInstrucciones?
-        private void ListaInstrucciones()
+        private void ListaInstrucciones(bool excecute)
         {
-            Instruccion();
+            Instruccion(excecute);
 
             if (getContenido() != "}")
             {
-                ListaInstrucciones();
+                ListaInstrucciones(excecute);
             }
         }
 
         // Instruccion -> console | If | While | do | For | Variables | Asignación
-        private void Instruccion()
+        private void Instruccion(bool excecute)
         {
             if (getContenido() == "Console")
             {
-                console();
+                console(excecute);
             }
             else if (getContenido() == "if")
             {
-                If();
+                If(excecute);
             }
             else if (getContenido() == "while")
             {
@@ -184,7 +186,7 @@ namespace Sintaxis_1
             {
                 For();
             }
-            else if (getClasification() == Tipos.TipoDato)
+            else if (getClasificacion() == Tipos.TipoDato)
             {
                 Variables();
             }
@@ -210,10 +212,11 @@ namespace Sintaxis_1
 
             if (v == null)
             {
-                throw new Error("Sintaxis: la variable " + getContenido() + " no está definida ", logger, line, column);
+                /* throw new Error("Sintaxis: la variable " + getContenido() + " no está definida ", logger, line, column); */
+                throw new Error("Sintaxis: la variable " + getContenido() + " no está definida ", log, linea);
             }
             //Console.Write(getContenido() + " = ");
-            match(Tipos.Indentificador);
+            match(Tipos.Identificador);
 
             if (getContenido() == "=")
             {
@@ -255,7 +258,7 @@ namespace Sintaxis_1
             {
                 string currentContent = getContenido();
 
-                if (getClasification() == Tipos.IncrementoTermino)
+                if (getClasificacion() == Tipos.IncrementoTermino)
                 {
                     match(Tipos.IncrementoTermino);
 
@@ -278,20 +281,21 @@ namespace Sintaxis_1
         }
         // If -> if (Condicion) bloqueInstrucciones | instruccion
         // (else bloqueInstrucciones | instruccion)?
-        private void If()
+        private void If(bool excecute2)
         {
             match("if");
             match("(");
-            Condicion();
+            bool execute = Condicion() && excecute2;
+            Console.WriteLine(execute);
             match(")");
 
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(execute);
             }
             else
             {
-                Instruccion();
+                Instruccion(execute);
             }
 
             if (getContenido() == "else")
@@ -300,11 +304,11 @@ namespace Sintaxis_1
 
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones();
+                    BloqueInstrucciones(execute);
                 }
                 else
                 {
-                    Instruccion();
+                    Instruccion(execute);
                 }
             }
         }
@@ -345,11 +349,11 @@ namespace Sintaxis_1
 
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(true);
             }
             else
             {
-                Instruccion();
+                Instruccion(true);
             }
         }
         // Do -> do 
@@ -361,11 +365,11 @@ namespace Sintaxis_1
 
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(true);
             }
             else
             {
-                Instruccion();
+                Instruccion(true);
             }
 
             match("while");
@@ -389,17 +393,17 @@ namespace Sintaxis_1
 
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(true);
             }
             else
             {
-                Instruccion();
+                Instruccion(true);
             }
         }
         // Console -> Console.(WriteLine|Write) (cadena concatenaciones?);
-        private void console()
+        private void console(bool excecute)
         {
-            int console;
+            bool console = false;
             string content = "";
 
             match("Console");
@@ -408,11 +412,10 @@ namespace Sintaxis_1
             switch (getContenido())
             {
                 case "Write":
-                    console = 1;
+                    console = true;
                     match("Write");
                     break;
                 default:
-                    console = 2;
                     match("WriteLine");
                     break;
             }
@@ -423,24 +426,24 @@ namespace Sintaxis_1
             {
                 content += getContenido();
 
-                if (getClasification() == Tipos.Cadena)
+                if (getClasificacion() == Tipos.Cadena)
                 {
                     match(Tipos.Cadena);
                 }
                 else
                 {
-                    match(Tipos.Indentificador);
+                    match(Tipos.Identificador);
                 }
             }
-            else if (console == 1)
+            else if (console)
             {
-                if (getClasification() == Tipos.Cadena)
+                if (getClasificacion() == Tipos.Cadena)
                 {
                     match(Tipos.Cadena);
                 }
                 else
                 {
-                    match(Tipos.Indentificador);
+                    match(Tipos.Identificador);
                 }
             }
 
@@ -448,11 +451,10 @@ namespace Sintaxis_1
             match(";");
 
             content = content.Replace("\"", "").Replace("\\n", "\n");
-
             switch (console)
             {
-                case 1: Console.Write(content); break;
-                case 2: Console.WriteLine(content); break;
+                case true: Console.Write(content); break;
+                case false: Console.WriteLine(content); break;
             }
         }
         // Main -> static void Main(string[] args) BloqueInstrucciones 
@@ -467,7 +469,7 @@ namespace Sintaxis_1
             match("]");
             match("args");
             match(")");
-            BloqueInstrucciones();
+            BloqueInstrucciones(true);
         }
         // Expresion -> Termino MasTermino
         private void Expresion()
@@ -478,7 +480,7 @@ namespace Sintaxis_1
         // MasTermino -> (OperadorTermino Termino)?
         private void MasTermino()
         {
-            if (getClasification() == Tipos.OperadorTermino)
+            if (getClasificacion() == Tipos.OperadorTermino)
             {
                 string operador = getContenido();
                 match(Tipos.OperadorTermino);
@@ -505,7 +507,7 @@ namespace Sintaxis_1
         // PorFactor -> (OperadorFactor Factor)?
         private void PorFactor()
         {
-            if (getClasification() == Tipos.OperadorFactor)
+            if (getClasificacion() == Tipos.OperadorFactor)
             {
                 string operador = getContenido();
                 match(Tipos.OperadorFactor);
@@ -527,24 +529,25 @@ namespace Sintaxis_1
         // Factor -> numero | identificador | (Expresion)
         private void Factor()
         {
-            if (getClasification() == Tipos.Numero)
+            if (getClasificacion() == Tipos.Numero)
             {
                 s.Push(float.Parse(getContenido()));
                 //Console.Write(getContenido() + " ");
                 match(Tipos.Numero);
             }
-            else if (getClasification() == Tipos.Indentificador)
+            else if (getClasificacion() == Tipos.Identificador)
             {
                 Variable? v = l.Find(variable => variable.getNombre() == getContenido());
 
                 if (v == null)
                 {
-                    throw new Error("Sintaxis: la variable " + getContenido() + " no está definida ", logger, line, column);
+                    /* throw new Error("Sintaxis: la variable " + getContenido() + " no está definida ", log, linea, column); */
+                    throw new Error("Sintaxis: la variable " + getContenido() + " no está definida ", log, linea);
                 }
 
                 s.Push(v.getValor());
                 //Console.Write(getContenido() + " ");
-                match(Tipos.Indentificador);
+                match(Tipos.Identificador);
             }
             else
             {
@@ -557,9 +560,9 @@ namespace Sintaxis_1
         // Concatenaciones -> (Identificador | Cadena) (+ Concatenaciones) ?
         private void Concatenaciones()
         {
-            if (getClasification() == Tipos.Indentificador)
+            if (getClasificacion() == Tipos.Identificador)
             {
-                match(Tipos.Indentificador);
+                match(Tipos.Identificador);
             }
             else
             {
