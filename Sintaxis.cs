@@ -21,7 +21,7 @@ namespace Sintaxis_1
         }
         public void match(string contenido)
         {
-            if (getContent() == contenido)
+            if (getContenido() == contenido)
             {
                 NextToken();
             }
