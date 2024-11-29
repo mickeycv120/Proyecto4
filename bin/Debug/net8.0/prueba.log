@@ -1,5 +1,8 @@
+Fecha: 28/11/2024 
+Hora: 09:54 p. m. 
+Archivo: prueba.cpp 
+
 using = Identificador
-Constructor lenguaje
 System = Identificador
 ; = FinSentencia
 using = Identificador
@@ -31,20 +34,10 @@ string = Identificador
 args = Identificador
 ) = Caracter
 { = InicioBloque
-for = PalabraReservada
-( = Caracter
-i = Identificador
+int = TipoDato
+a = Identificador
+, = Caracter
+b = Identificador
 = = Asignacion
-0 = Numero
-; = FinSentencia
-i = Identificador
-< = OperadorRelacional
-d = Identificador
-; = FinSentencia
-i = Identificador
-+= = OperadorTermino
-2 = Numero
-) = Caracter
-{ = InicioBloque
-for = PalabraReservada
-( = Caracter
+Console = Identificador
+Error: Sintaxis: la variable Console no está definida  on linea 8

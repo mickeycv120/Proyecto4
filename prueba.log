@@ -1,5 +1,5 @@
-Fecha: 26/11/2024 
-Hora: 03:48 p. m. 
+Fecha: 28/11/2024 
+Hora: 09:45 p. m. 
 Archivo: prueba.cpp 
 
 using = Identificador
@@ -34,13 +34,8 @@ string = Identificador
 args = Identificador
 ) = Caracter
 { = InicioBloque
-char = TipoDato
-c = Identificador
-; = FinSentencia
 int = TipoDato
 a = Identificador
-, = Caracter
-b = Identificador
-, = Caracter
-c = Identificador
-Error: Sintaxis: la variable c ya existe on linea 9
+= = Asignacion
+Console = Identificador
+Error: Sintaxis: la variable Console no está definida  on linea 8

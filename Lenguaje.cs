@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace Sintaxis_1
 {
+    //SECTION - Constructores
     public class Lenguaje : Sintaxis
     {
         Stack<float> s;
@@ -35,7 +36,9 @@ namespace Sintaxis_1
             s = new Stack<float>();
             l = new List<Variable>();
         }
+        //!SECTION
 
+        //SECTION - displayStack y displayList
         private void displayStack()
         {
             Console.WriteLine("Contenido del Stack");
@@ -53,8 +56,10 @@ namespace Sintaxis_1
                 log.WriteLine($"{elemento.getNombre()} {elemento.getTipoDato()} {elemento.getValor()}");
             }
         }
+        //!SECTION
         // ? Cerradura epsilon
         //Programa  -> Librerias? Variables? Main
+        //SECTION - Programa
         public void Programa()
         {
             if (getContenido() == "using")
@@ -70,8 +75,11 @@ namespace Sintaxis_1
             Main();
             displayList();
         }
+        //!SECTION
+
 
         //Librerias -> using ListaLibrerias; Librerias?
+        //SECTION - Librerias
         private void Librerias()
         {
             match("using");
@@ -83,8 +91,10 @@ namespace Sintaxis_1
                 Librerias();
             }
         }
+        //!SECTION
 
         //Variables -> tipo_dato Lista_identificadores; Variables?
+        //SECTION - Variables
         private void Variables()
         {
             Variable.TipoDato t = Variable.TipoDato.Char;
@@ -104,8 +114,10 @@ namespace Sintaxis_1
                 Variables();
             }
         }
+        //!SECTION
 
         //ListaLibrerias -> identificador (.ListaLibrerias)?
+        //SECTION - ListaLibrerias
         private void ListaLibrerias()
         {
             match(Tipos.Identificador);
@@ -116,8 +128,10 @@ namespace Sintaxis_1
                 ListaLibrerias();
             }
         }
+        //!SECTION
 
         // ListaIdentificadores -> identificador (=Expresion)? (,ListaIdentificadores)?
+        //SECTION - ListaIdentificadores
         private void ListaIdentificadores(Variable.TipoDato t)
         {
             if (l.Find(variable => variable.getNombre() == getContenido()) != null)
@@ -142,7 +156,10 @@ namespace Sintaxis_1
                 ListaIdentificadores(t);
             }
         }
+        //!SECTION
+
         // BloqueInstrucciones -> { listaIntrucciones? }
+        //SECTION - BloqueInstrucciones
         private void BloqueInstrucciones(bool excecute)
         {
             match("{");
@@ -152,7 +169,9 @@ namespace Sintaxis_1
             }
             match("}");
         }
+        //!SECTION
         // ListaInstrucciones -> Instruccion ListaInstrucciones?
+        //SECTION - ListaInstrucciones
         private void ListaInstrucciones(bool excecute)
         {
             Instruccion(excecute);
@@ -162,8 +181,10 @@ namespace Sintaxis_1
                 ListaInstrucciones(excecute);
             }
         }
+        //!SECTION
 
         // Instruccion -> console | If | While | do | For | Variables | Asignación
+        //SECTION - Instruccion
         private void Instruccion(bool excecute)
         {
             if (getContenido() == "Console")
@@ -196,6 +217,7 @@ namespace Sintaxis_1
                 match(";");
             }
         }
+        //!SECTION
         /*
         Agregar el resto de asignaciones:
         ID = Expresion
@@ -206,6 +228,7 @@ namespace Sintaxis_1
         ID = Console.Read()
         ID = Console.ReadLine()
         */
+        //SECTION - Asignacion
         private void Asignacion()
         {
             Variable? v = l.Find(variable => variable.getNombre() == getContenido());
@@ -274,13 +297,14 @@ namespace Sintaxis_1
                 }
             }
 
-
             float r = s.Pop();
             v.setValor(r);
             //displayStack();
         }
+        //!SECTION
         // If -> if (Condicion) bloqueInstrucciones | instruccion
         // (else bloqueInstrucciones | instruccion)?
+        //SECTION - If
         private void If(bool excecute2)
         {
             match("if");
@@ -312,7 +336,9 @@ namespace Sintaxis_1
                 }
             }
         }
+        //!SECTION
         // Condicion -> Expresion operadorRelacional Expresion
+        //SECTION - Condicion
         private bool Condicion()
         {
             float v1 = s.Pop();
@@ -339,7 +365,9 @@ namespace Sintaxis_1
                     return v1 != v2;
             }
         }
+        //!SECTION
         // While -> while(Condicion) bloqueInstrucciones | instruccion
+        //SECTION - while
         private void While()
         {
             match("while");
@@ -356,9 +384,11 @@ namespace Sintaxis_1
                 Instruccion(true);
             }
         }
+        //!SECTION
         // Do -> do 
         // bloqueInstrucciones | intruccion 
         // while(Condicion);
+        //SECTION - Do
         private void Do()
         {
             match("do");
@@ -378,8 +408,10 @@ namespace Sintaxis_1
             match(")");
             match(";");
         }
+        //!SECTION
         // For -> for(Asignacion; Condicion; Asignación) 
         // BloqueInstrucciones | Intruccion
+        //SECTION - For
         private void For()
         {
             match("for");
@@ -400,7 +432,9 @@ namespace Sintaxis_1
                 Instruccion(true);
             }
         }
+        //!SECTION
         // Console -> Console.(WriteLine|Write) (cadena concatenaciones?);
+        //SECTION - Console
         private void console(bool excecute)
         {
             bool console = false;
@@ -457,7 +491,9 @@ namespace Sintaxis_1
                 case false: Console.WriteLine(content); break;
             }
         }
+        //!SECTION
         // Main -> static void Main(string[] args) BloqueInstrucciones 
+        //SECTION - Main
         private void Main()
         {
             match("static");
@@ -471,13 +507,17 @@ namespace Sintaxis_1
             match(")");
             BloqueInstrucciones(true);
         }
+        //!SECTION
         // Expresion -> Termino MasTermino
+        //SECTION - Expresion
         private void Expresion()
         {
             Termino();
             MasTermino();
         }
+        //!SECTION
         // MasTermino -> (OperadorTermino Termino)?
+        //SECTION - MasTermino
         private void MasTermino()
         {
             if (getClasificacion() == Tipos.OperadorTermino)
@@ -498,13 +538,17 @@ namespace Sintaxis_1
 
             }
         }
+        //!SECTION
         // Termino -> Factor PorFactor
+        //SECTION - Termino
         private void Termino()
         {
             Factor();
             PorFactor();
         }
+        //!SECTION
         // PorFactor -> (OperadorFactor Factor)?
+        //SECTION - PorFactor
         private void PorFactor()
         {
             if (getClasificacion() == Tipos.OperadorFactor)
@@ -526,7 +570,9 @@ namespace Sintaxis_1
                 }
             }
         }
+        //!SECTION
         // Factor -> numero | identificador | (Expresion)
+        //SECTION - Factor
         private void Factor()
         {
             if (getClasificacion() == Tipos.Numero)
@@ -556,8 +602,10 @@ namespace Sintaxis_1
                 match(")");
             }
         }
+        //!SECTION
 
         // Concatenaciones -> (Identificador | Cadena) (+ Concatenaciones) ?
+        //SECTION - Concatenaciones
         private void Concatenaciones()
         {
             if (getClasificacion() == Tipos.Identificador)
@@ -575,5 +623,6 @@ namespace Sintaxis_1
                 Concatenaciones();
             }
         }
+        //!SECTION
     }
 }
