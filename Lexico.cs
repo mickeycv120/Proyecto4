@@ -299,6 +299,7 @@ namespace Sintaxis_1
                 {
                     case "char":
                     case "int":
+                    case "string":
                     case "float":
                         setClasificacion(Tipos.TipoDato);
                         break;

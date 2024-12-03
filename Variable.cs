@@ -9,7 +9,7 @@ namespace Sintaxis_1
     {
         public enum TipoDato
         {
-            Char, Int, Float
+            Char, Int, Float, String, Boolean
         }
         TipoDato tipo;
         string nombre;

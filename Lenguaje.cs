@@ -103,6 +103,9 @@ namespace Sintaxis_1
             {
                 case "int": t = Variable.TipoDato.Int; break;
                 case "float": t = Variable.TipoDato.Float; break;
+                case "string": t = Variable.TipoDato.String; break;
+                case "bool": t = Variable.TipoDato.Boolean; break;
+                case "char": t = Variable.TipoDato.Char; break;
             }
 
             match(Tipos.TipoDato);
@@ -147,7 +150,47 @@ namespace Sintaxis_1
             if (getContenido() == "=")
             {
                 match("=");
-                Expresion();
+                if (getContenido() == "Console")
+                {
+                    //int read;
+
+                    match("Console");
+                    match(".");
+
+                    string opc = getContenido();
+                    match(opc);
+
+                    /* if (getContenido() == "Read")
+                    {
+                        read = 1;
+                        match("Read");
+                    }
+                    else
+                    {
+                        read = 2;
+                        match("ReadLine");
+                    } */
+
+                    match("(");
+                    match(")");
+
+                    switch (opc)
+                    {
+                        case "Read":
+                            Console.Read();
+                            break;
+                        case "ReadLine":
+                            Console.ReadLine();
+                            break;
+                        default:
+                            throw new Exception("Argumento inválido");
+                    }
+
+                }
+                else
+                {
+                    Expresion();
+                }
             }
 
             if (getContenido() == ",")
@@ -247,12 +290,15 @@ namespace Sintaxis_1
 
                 if (getContenido() == "Console")
                 {
-                    int read;
+                    //int read;
 
                     match("Console");
                     match(".");
 
-                    if (getContenido() == "Read")
+                    string opc = getContenido();
+                    match(opc);
+
+                    /* if (getContenido() == "Read")
                     {
                         read = 1;
                         match("Read");
@@ -261,16 +307,23 @@ namespace Sintaxis_1
                     {
                         read = 2;
                         match("ReadLine");
-                    }
+                    } */
 
                     match("(");
                     match(")");
 
-                    switch (read)
+                    switch (opc)
                     {
-                        case 1: Console.Read(); break;
-                        case 2: Console.ReadLine(); break;
+                        case "Read":
+                            Console.Read();
+                            break;
+                        case "ReadLine":
+                            Console.ReadLine();
+                            break;
+                        default:
+                            throw new Exception("Argumento inválido");
                     }
+
                 }
                 else
                 {
@@ -438,6 +491,7 @@ namespace Sintaxis_1
         private void console(bool excecute)
         {
             bool console = false;
+            bool isRead = false;
             string content = "";
 
             match("Console");
@@ -449,6 +503,14 @@ namespace Sintaxis_1
                     console = true;
                     match("Write");
                     break;
+                case "Read":
+                    isRead = true;
+                    match("Read");
+                    break;
+                case "ReadLine":
+                    isRead = true;
+                    match("ReadLine");
+                    break;
                 default:
                     match("WriteLine");
                     break;
@@ -456,21 +518,10 @@ namespace Sintaxis_1
 
             match("(");
 
-            if (getContenido() != ")")
+            if (!isRead && getContenido() != ")")
             {
                 content += getContenido();
 
-                if (getClasificacion() == Tipos.Cadena)
-                {
-                    match(Tipos.Cadena);
-                }
-                else
-                {
-                    match(Tipos.Identificador);
-                }
-            }
-            else if (console)
-            {
                 if (getClasificacion() == Tipos.Cadena)
                 {
                     match(Tipos.Cadena);
@@ -484,11 +535,22 @@ namespace Sintaxis_1
             match(")");
             match(";");
 
-            content = content.Replace("\"", "").Replace("\\n", "\n");
-            switch (console)
+            if (isRead)
             {
-                case true: Console.Write(content); break;
-                case false: Console.WriteLine(content); break;
+                content = getContenido() == "ReadLine" ? Console.ReadLine() : ((char)Console.Read()).ToString();
+            }
+            else
+            {
+                content = content.Replace("\"", "").Replace("\\n", "\n");
+            }
+
+            if (!isRead)
+            {
+                switch (console)
+                {
+                    case true: Console.Write(content); break;
+                    case false: Console.WriteLine(content); break;
+                }
             }
         }
         //!SECTION

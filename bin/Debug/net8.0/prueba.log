@@ -1,34 +1,12 @@
-Fecha: 28/11/2024 
-Hora: 09:54 p. m. 
+Fecha: 02/12/2024 
+Hora: 05:54 p. m. 
 Archivo: prueba.cpp 
 
-using = Identificador
-System = Identificador
-; = FinSentencia
-using = Identificador
-System = Identificador
-. = Caracter
-Collections = Identificador
-. = Caracter
-Generic = Identificador
-; = FinSentencia
-using = Identificador
-System = Identificador
-. = Caracter
-Linq = Identificador
-; = FinSentencia
-using = Identificador
-System = Identificador
-. = Caracter
-Threading = Identificador
-. = Caracter
-Tasks = Identificador
-; = FinSentencia
 static = Identificador
 void = Identificador
 Main = Identificador
 ( = Caracter
-string = Identificador
+string = TipoDato
 [ = Caracter
 ] = Caracter
 args = Identificador
@@ -36,8 +14,5 @@ args = Identificador
 { = InicioBloque
 int = TipoDato
 a = Identificador
-, = Caracter
-b = Identificador
 = = Asignacion
 Console = Identificador
-Error: Sintaxis: la variable Console no está definida  on linea 8
