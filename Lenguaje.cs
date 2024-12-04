@@ -23,8 +23,8 @@ namespace Sintaxis_1
     //SECTION - Constructores
     public class Lenguaje : Sintaxis
     {
-        Stack<float> s;
-        List<Variable> l;
+        Stack<float> s; //
+        List<Variable> l; //Para revisar la lista de variables ()
         public Lenguaje() : base()
         {
             s = new Stack<float>();
@@ -144,6 +144,11 @@ namespace Sintaxis_1
             }
 
             l.Add(new Variable(t, getContenido()));
+            string variableActual = getContenido();
+            //Variable a l.Find(variable => variable.getNombre() == variableActual);
+
+            Console.WriteLine(variableActual);
+
             match(Tipos.Identificador);
 
 
@@ -190,6 +195,8 @@ namespace Sintaxis_1
                 else
                 {
                     Expresion();
+                    Variable v = l.Find(variable => variable.getNombre() == variableActual);
+                    v.setValor(s.Pop());
                 }
             }
 
@@ -284,7 +291,7 @@ namespace Sintaxis_1
             //Console.Write(getContenido() + " = ");
             match(Tipos.Identificador);
 
-            if (getContenido() == "=")
+            /* if (getContenido() == "=")
             {
                 match("=");
 
@@ -297,17 +304,6 @@ namespace Sintaxis_1
 
                     string opc = getContenido();
                     match(opc);
-
-                    /* if (getContenido() == "Read")
-                    {
-                        read = 1;
-                        match("Read");
-                    }
-                    else
-                    {
-                        read = 2;
-                        match("ReadLine");
-                    } */
 
                     match("(");
                     match(")");
@@ -328,31 +324,62 @@ namespace Sintaxis_1
                 else
                 {
                     Expresion();
+                    v.setValor(s.Pop());
                 }
             }
-            else
+            
+            } */
+
+            switch (getContenido())
             {
-                string currentContent = getContenido();
+                case "=":
+                    match("=");
+                    if (getContenido() == "Console")
+                    {
+                        //int read;
 
-                if (getClasificacion() == Tipos.IncrementoTermino)
-                {
-                    match(Tipos.IncrementoTermino);
+                        match("Console");
+                        match(".");
 
-                    if (currentContent != "++" && currentContent != "--")
+                        string opc = getContenido();
+                        match(opc);
+
+                        match("(");
+                        match(")");
+
+                        switch (opc)
+                        {
+                            case "Read":
+                                Console.Read();
+                                break;
+                            case "ReadLine":
+                                Console.ReadLine();
+                                break;
+                            default:
+                                throw new Exception("Argumento inválido");
+                        }
+
+                    }
+                    else
                     {
                         Expresion();
+                        v.setValor(s.Pop());
                     }
-                }
-                else
-                {
-                    match(Tipos.IncrementoFactor);
+                    break;
+                case "++":
+                    match("++");
+                    v.setValor(v.getValor() + 1);
+                    break;
+                case "--":
+                    match("--");
+                    v.setValor(v.getValor() - 1);
+                    break;
+                case "+=":
+                    match("+=");
                     Expresion();
-                }
+                    v.setValor(v.getValor() + s.Pop());
+                    break;
             }
-
-            float r = s.Pop();
-            v.setValor(r);
-            //displayStack();
         }
         //!SECTION
         // If -> if (Condicion) bloqueInstrucciones | instruccion
@@ -520,15 +547,24 @@ namespace Sintaxis_1
 
             if (!isRead && getContenido() != ")")
             {
-                content += getContenido();
 
                 if (getClasificacion() == Tipos.Cadena)
                 {
+                    content += getContenido();
                     match(Tipos.Cadena);
                 }
                 else
                 {
+                    string nomV = getContenido();
                     match(Tipos.Identificador);
+                    Variable v = l.Find(variable => variable.getNombre() == nomV);
+
+                    if (v == null)
+                    {
+                        throw new Error("La variable no existe", log, linea);
+                    }
+                    Console.WriteLine(v.getValor());
+
                 }
             }
 
@@ -670,19 +706,23 @@ namespace Sintaxis_1
         //SECTION - Concatenaciones
         private void Concatenaciones()
         {
-            if (getClasificacion() == Tipos.Identificador)
+            if (getClasificacion() == Tipos.Cadena)
             {
-                match(Tipos.Identificador);
+                Console.WriteLine(getContenido());
+                match(Tipos.Cadena);
             }
             else
             {
-                match(Tipos.Cadena);
-            }
+                string nomV = getContenido();
+                match(Tipos.Identificador);
 
-            if (getContenido() == "+")
-            {
-                match("+");
-                Concatenaciones();
+                Variable v = l.Find(variable => variable.getNombre() == nomV);
+
+                if (v == null)
+                {
+                    throw new Error("La variable no existe", log, linea);
+                }
+                Console.WriteLine(v.getValor());
             }
         }
         //!SECTION
