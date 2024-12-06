@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Sintaxis_1
@@ -282,6 +283,7 @@ namespace Sintaxis_1
         private void Asignacion()
         {
             Variable? v = l.Find(variable => variable.getNombre() == getContenido());
+            match(Tipos.Identificador);
 
             if (v == null)
             {
@@ -289,7 +291,7 @@ namespace Sintaxis_1
                 throw new Error("Sintaxis: la variable " + getContenido() + " no está definida ", log, linea);
             }
             //Console.Write(getContenido() + " = ");
-            match(Tipos.Identificador);
+
 
             /* if (getContenido() == "=")
             {
@@ -364,11 +366,13 @@ namespace Sintaxis_1
                     {
                         Expresion();
                         v.setValor(s.Pop());
+                        displayList();
                     }
                     break;
                 case "++":
                     match("++");
                     v.setValor(v.getValor() + 1);
+                    displayList();
                     break;
                 case "--":
                     match("--");
@@ -378,6 +382,21 @@ namespace Sintaxis_1
                     match("+=");
                     Expresion();
                     v.setValor(v.getValor() + s.Pop());
+                    break;
+                case "-=":
+                    match("-=");
+                    Expresion();
+                    v.setValor(v.getValor() - s.Pop());
+                    break;
+                case "*=":
+                    match("*=");
+                    Expresion();
+                    v.setValor(v.getValor() * s.Pop());
+                    break;
+                case "/=":
+                    match("/=");
+                    Expresion();
+                    v.setValor(v.getValor() / s.Pop());
                     break;
             }
         }
@@ -421,8 +440,8 @@ namespace Sintaxis_1
         //SECTION - Condicion
         private bool Condicion()
         {
-            float v1 = s.Pop();
             Expresion();
+            float v1 = s.Pop();
             match(Tipos.OperadorRelacional);
             String operador = getContenido();
             Expresion();
@@ -565,6 +584,7 @@ namespace Sintaxis_1
                     }
                     Console.WriteLine(v.getValor());
 
+                    match(getContenido());
                 }
             }
 

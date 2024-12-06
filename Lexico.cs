@@ -200,7 +200,7 @@ namespace Sintaxis_1
                 case 9: setClasificacion(Tipos.InicioBloque); break;
                 case 10: setClasificacion(Tipos.FinBloque); break;
                 case 11: setClasificacion(Tipos.OperadorTernario); break;
-                case 12: setClasificacion(Tipos.OperadorTermino); break;
+                case 12: setClasificacion(Tipos.OperadorTermino); break; // *
                 case 13: setClasificacion(Tipos.OperadorTermino); break;
                 case 14: setClasificacion(Tipos.OperadorTermino); break;
                 case 15: setClasificacion(Tipos.Puntero); break;

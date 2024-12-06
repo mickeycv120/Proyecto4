@@ -1,5 +1,5 @@
-Fecha: 03/12/2024 
-Hora: 03:51 p. m. 
+Fecha: 05/12/2024 
+Hora: 08:12 p. m. 
 Archivo: prueba.cpp 
 
 using = Identificador
@@ -35,47 +35,37 @@ args = Identificador
 ) = Caracter
 { = InicioBloque
 int = TipoDato
-x = Identificador
+a = Identificador
 = = Asignacion
 1 = Numero
 ; = FinSentencia
-x = Identificador
+while = PalabraReservada
+( = Caracter
+a = Identificador
+> = OperadorRelacional
+2 = Numero
+) = Caracter
+{ = InicioBloque
+a = Identificador
 ++ = OperadorTermino
 ; = FinSentencia
-Console = Identificador
-. = Caracter
-WriteLine = Identificador
-( = Caracter
-x = Identificador
-) = Caracter
-; = FinSentencia
-int = TipoDato
-a = Identificador
-= = Asignacion
-5 = Numero
-; = FinSentencia
-int = TipoDato
-b = Identificador
-= = Asignacion
-6 = Numero
-; = FinSentencia
-Console = Identificador
-. = Caracter
-WriteLine = Identificador
+Lista de Variables
+a Int 2
+if = PalabraReservada
 ( = Caracter
 a = Identificador
+== = OperadorRelacional
+1 = Numero
 ) = Caracter
-; = FinSentencia
+{ = InicioBloque
 Console = Identificador
 . = Caracter
 WriteLine = Identificador
 ( = Caracter
-b = Identificador
+"Hola" = Cadena
 ) = Caracter
 ; = FinSentencia
-Console = Identificador
-. = Caracter
-WriteLine = Identificador
-( = Caracter
-a = Identificador
-+ = OperadorTermino
+} = FinBloque
+} = FinBloque
+Lista de Variables
+a Int 2
