@@ -619,8 +619,8 @@ namespace Sintaxis_1
                         throw new Error("La variable no existe", log, linea);
                     }
                     Console.WriteLine(v.getValor());
+                    match(v.getValor().ToString());
 
-                    //match(getContenido());
                 }
             }
 
@@ -778,13 +778,17 @@ namespace Sintaxis_1
                 match(Tipos.Identificador);
 
                 Variable v = l.Find(variable => variable.getNombre() == nomV);
-
                 if (v == null)
                 {
                     throw new Error("La variable no existe", log, linea);
                 }
                 Console.WriteLine(v.getValor());
-
+                if (getContenido() == "+")
+                {
+                    match("+");
+                    Console.WriteLine(v.getValor());
+                    Concatenaciones();
+                }
             }
         }
         //!SECTION

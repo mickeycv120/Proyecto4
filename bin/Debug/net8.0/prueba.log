@@ -1,5 +1,5 @@
 Fecha: 08/12/2024 
-Hora: 12:28 a. m. 
+Hora: 01:54 a. m. 
 Archivo: prueba.cpp 
 
 static = Identificador
@@ -21,19 +21,32 @@ ReadLine = Identificador
 ( = Caracter
 ) = Caracter
 ; = FinSentencia
+int = TipoDato
+a = Identificador
+; = FinSentencia
+a = Identificador
+= = Asignacion
+b = Identificador
++ = OperadorTermino
+10 = Numero
+; = FinSentencia
+Lista de Variables
+b Int 9
+a Int 19
 Console = Identificador
 . = Caracter
 WriteLine = Identificador
 ( = Caracter
+"Hola " = Cadena
++ = OperadorTermino
+a = Identificador
++ = OperadorTermino
+" adiós" = Cadena
++ = OperadorTermino
 b = Identificador
 ) = Caracter
 ; = FinSentencia
-Console = Identificador
-. = Caracter
-WriteLine = Identificador
-( = Caracter
-"Hola" = Cadena
-) = Caracter
-; = FinSentencia
+} = FinBloque
 Lista de Variables
-b Int 8
+b Int 9
+a Int 19

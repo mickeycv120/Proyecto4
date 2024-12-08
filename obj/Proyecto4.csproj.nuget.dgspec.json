@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\C#\\Proyecto4\\Proyecto4.csproj": {}
+    "D:\\C#\\Proyecto4\\Proyecto4.csproj": {}
   },
   "projects": {
-    "d:\\C#\\Proyecto4\\Proyecto4.csproj": {
+    "D:\\C#\\Proyecto4\\Proyecto4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\C#\\Proyecto4\\Proyecto4.csproj",
+        "projectUniqueName": "D:\\C#\\Proyecto4\\Proyecto4.csproj",
         "projectName": "Proyecto4",
-        "projectPath": "d:\\C#\\Proyecto4\\Proyecto4.csproj",
+        "projectPath": "D:\\C#\\Proyecto4\\Proyecto4.csproj",
         "packagesPath": "C:\\Users\\micke\\.nuget\\packages\\",
-        "outputPath": "d:\\C#\\Proyecto4\\obj\\",
+        "outputPath": "D:\\C#\\Proyecto4\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\micke\\AppData\\Roaming\\NuGet\\NuGet.Config",
