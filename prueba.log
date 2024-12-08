@@ -1,5 +1,5 @@
 Fecha: 08/12/2024 
-Hora: 02:01 a. m. 
+Hora: 10:50 a. m. 
 Archivo: prueba.cpp 
 
 using = Identificador
@@ -64,6 +64,28 @@ b = Identificador
 / = OperadorFactor
 b = Identificador
 ; = FinSentencia
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"Hola " = Cadena
+) = Caracter
+; = FinSentencia
+if = PalabraReservada
+( = Caracter
+b = Identificador
+== = OperadorRelacional
+5 = Numero
+) = Caracter
+{ = InicioBloque
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"Hola mickey" = Cadena
+) = Caracter
+; = FinSentencia
+} = FinBloque
 a = Identificador
 -- = OperadorTermino
 ; = FinSentencia
@@ -95,7 +117,7 @@ b = Identificador
 ; = FinSentencia
 Lista de Variables
 b Int 100
-a Int 106.66667
+a Int 107.14285
 n Int 5
 a = Identificador
 < = OperadorRelacional
@@ -106,7 +128,7 @@ a = Identificador
 ) = Caracter
 Lista de Variables
 b Int 100
-a Int 107.66667
+a Int 108.14285
 n Int 5
 { = InicioBloque
 b = Identificador
@@ -114,7 +136,7 @@ b = Identificador
 ; = FinSentencia
 Lista de Variables
 b Int 101
-a Int 107.66667
+a Int 108.14285
 n Int 5
 while = PalabraReservada
 ( = Caracter
@@ -238,5 +260,5 @@ WriteLine = Identificador
 } = FinBloque
 Lista de Variables
 b Int 101
-a Int 107.66667
+a Int 108.14285
 n Int 5

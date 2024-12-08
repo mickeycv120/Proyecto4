@@ -179,26 +179,26 @@ namespace Sintaxis_1
 
                     match("(");
                     match(")");
-                    string input;
-                    int value;
+                    string txt;
+                    int num;
 
                     switch (opc)
                     {
                         case "Read":
-                            input = Console.Read().ToString();
+                            txt = Console.Read().ToString();
                             Variable? v = l.Find(variable => variable.getNombre() == variableActual);
                             v.setValor(v.getValor());
 
                             break;
                         case "ReadLine":
-                            input = Console.ReadLine();
-                            if (!int.TryParse(input, out value))
+                            txt = Console.ReadLine();
+                            if (!int.TryParse(txt, out num))
                             {
                                 throw new Exception("Error: La entrada no es un número válido.");
                             }
 
                             Variable? m = l.Find(variable => variable.getNombre() == variableActual);
-                            m.setValor(value);
+                            m.setValor(num);
 
                             break;
                         default:
@@ -251,34 +251,37 @@ namespace Sintaxis_1
         //SECTION - Instruccion
         private void Instruccion(bool excecute)
         {
-            if (getContenido() == "Console")
+            if (excecute)
             {
-                console(excecute);
-            }
-            else if (getContenido() == "if")
-            {
-                If(excecute);
-            }
-            else if (getContenido() == "while")
-            {
-                While();
-            }
-            else if (getContenido() == "do")
-            {
-                Do();
-            }
-            else if (getContenido() == "for")
-            {
-                For();
-            }
-            else if (getClasificacion() == Tipos.TipoDato)
-            {
-                Variables();
-            }
-            else
-            {
-                Asignacion();
-                match(";");
+                switch (getContenido())
+                {
+                    case "Console":
+                        console(excecute);
+                        break;
+                    case "if":
+                        If(excecute);
+                        break;
+                    case "while":
+                        While();
+                        break;
+                    case "do":
+                        Do();
+                        break;
+                    case "for":
+                        For();
+                        break;
+                    default:
+                        if (getClasificacion() == Tipos.TipoDato)
+                        {
+                            Variables();
+                        }
+                        else
+                        {
+                            Asignacion();
+                            match(";");
+                        }
+                        break;
+                }
             }
         }
         //!SECTION
@@ -442,7 +445,6 @@ namespace Sintaxis_1
             bool execute = Condicion() && excecute2;
             Console.WriteLine(execute);
             match(")");
-
             if (getContenido() == "{")
             {
                 BloqueInstrucciones(execute);

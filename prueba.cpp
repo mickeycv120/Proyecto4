@@ -7,6 +7,11 @@ static void Main(string[] args)
 {
   int b = Console.ReadLine();
   int a = (3 + 5) * 8 - (10 - 2*b) / b; // 61
+
+  if(b==5){
+    Console.WriteLine("Hola mickey");
+  }
+
   a--;
   a+=40;
   a*=2;
