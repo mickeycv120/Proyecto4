@@ -179,14 +179,27 @@ namespace Sintaxis_1
 
                     match("(");
                     match(")");
+                    string input;
+                    int value;
 
                     switch (opc)
                     {
                         case "Read":
-                            Console.Read();
+                            input = Console.Read().ToString();
+                            Variable? v = l.Find(variable => variable.getNombre() == variableActual);
+                            v.setValor(v.getValor());
+
                             break;
                         case "ReadLine":
-                            Console.ReadLine();
+                            input = Console.ReadLine();
+                            if (!int.TryParse(input, out value))
+                            {
+                                throw new Exception("Error: La entrada no es un número válido.");
+                            }
+
+                            Variable? m = l.Find(variable => variable.getNombre() == variableActual);
+                            m.setValor(value);
+
                             break;
                         default:
                             throw new Exception("Argumento inválido");
@@ -196,7 +209,7 @@ namespace Sintaxis_1
                 else
                 {
                     Expresion();
-                    Variable v = l.Find(variable => variable.getNombre() == variableActual);
+                    Variable? v = l.Find(variable => variable.getNombre() == variableActual);
                     v.setValor(s.Pop());
                 }
             }
@@ -283,6 +296,7 @@ namespace Sintaxis_1
         private void Asignacion()
         {
             Variable? v = l.Find(variable => variable.getNombre() == getContenido());
+            string variableActual = getContenido();
             match(Tipos.Identificador);
 
             if (v == null)
@@ -349,13 +363,30 @@ namespace Sintaxis_1
                         match("(");
                         match(")");
 
+                        string input;
+                        int value;
+
                         switch (opc)
                         {
                             case "Read":
-                                Console.Read();
+                                input = Console.Read().ToString();
+                                if (!int.TryParse(input, out value))
+                                {
+                                    throw new Exception("Error: La entrada no es un número válido.");
+                                }
+                                Variable? vr = l.Find(variable => variable.getNombre() == variableActual);
+                                vr.setValor(value);
+
                                 break;
                             case "ReadLine":
-                                Console.ReadLine();
+                                input = Console.ReadLine();
+                                if (!int.TryParse(input, out value))
+                                {
+                                    throw new Exception("Error: La entrada no es un número válido.");
+                                }
+
+                                Variable? m = l.Find(variable => variable.getNombre() == variableActual);
+                                m.setValor(value);
                                 break;
                             default:
                                 throw new Exception("Argumento inválido");
@@ -442,8 +473,8 @@ namespace Sintaxis_1
         {
             Expresion();
             float v1 = s.Pop();
-            match(Tipos.OperadorRelacional);
             String operador = getContenido();
+            match(Tipos.OperadorRelacional);
             Expresion();
             float v2 = s.Pop();
 
@@ -571,6 +602,11 @@ namespace Sintaxis_1
                 {
                     content += getContenido();
                     match(Tipos.Cadena);
+                    if (getContenido() == "+")
+                    {
+                        match("+");
+                        Concatenaciones();
+                    }
                 }
                 else
                 {
@@ -584,7 +620,7 @@ namespace Sintaxis_1
                     }
                     Console.WriteLine(v.getValor());
 
-                    match(getContenido());
+                    //match(getContenido());
                 }
             }
 
@@ -730,6 +766,11 @@ namespace Sintaxis_1
             {
                 Console.WriteLine(getContenido());
                 match(Tipos.Cadena);
+                if (getContenido() == "+")
+                {
+                    match("+");
+                    Concatenaciones();
+                }
             }
             else
             {
@@ -743,6 +784,7 @@ namespace Sintaxis_1
                     throw new Error("La variable no existe", log, linea);
                 }
                 Console.WriteLine(v.getValor());
+
             }
         }
         //!SECTION

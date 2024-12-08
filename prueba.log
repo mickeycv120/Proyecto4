@@ -1,29 +1,7 @@
-Fecha: 05/12/2024 
-Hora: 08:12 p. m. 
+Fecha: 07/12/2024 
+Hora: 01:03 p. m. 
 Archivo: prueba.cpp 
 
-using = Identificador
-System = Identificador
-; = FinSentencia
-using = Identificador
-System = Identificador
-. = Caracter
-Collections = Identificador
-. = Caracter
-Generic = Identificador
-; = FinSentencia
-using = Identificador
-System = Identificador
-. = Caracter
-Linq = Identificador
-; = FinSentencia
-using = Identificador
-System = Identificador
-. = Caracter
-Threading = Identificador
-. = Caracter
-Tasks = Identificador
-; = FinSentencia
 static = Identificador
 void = Identificador
 Main = Identificador
@@ -35,29 +13,21 @@ args = Identificador
 ) = Caracter
 { = InicioBloque
 int = TipoDato
-a = Identificador
+b = Identificador
 = = Asignacion
-1 = Numero
-; = FinSentencia
-while = PalabraReservada
+Console = Identificador
+. = Caracter
+Read = Identificador
 ( = Caracter
-a = Identificador
-> = OperadorRelacional
-2 = Numero
 ) = Caracter
-{ = InicioBloque
-a = Identificador
-++ = OperadorTermino
 ; = FinSentencia
-Lista de Variables
-a Int 2
-if = PalabraReservada
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
 ( = Caracter
-a = Identificador
-== = OperadorRelacional
-1 = Numero
+b = Identificador
 ) = Caracter
-{ = InicioBloque
+; = FinSentencia
 Console = Identificador
 . = Caracter
 WriteLine = Identificador
@@ -65,7 +35,5 @@ WriteLine = Identificador
 "Hola" = Cadena
 ) = Caracter
 ; = FinSentencia
-} = FinBloque
-} = FinBloque
 Lista de Variables
-a Int 2
+b Int 56
