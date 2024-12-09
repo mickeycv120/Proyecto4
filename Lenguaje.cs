@@ -5,7 +5,7 @@
     //* 3) Evaluar las expresiones matemáticas *
     //* 4) Levantar si en el Console.ReadLine() no ingresan números *
     //* 5) Modificar la variable con el resto de operadores (Incremento de factor y término) *
-    //* 6) Hacer que funcione el else
+    //* 6) Hacer que funcione el else *
 
 
 
@@ -24,6 +24,7 @@ namespace Sintaxis_1
     //SECTION - Constructores
     public class Lenguaje : Sintaxis
     {
+        //NOTE - No volver a tocar el Stack
         Stack<float> s; //
         List<Variable> l; //Para revisar la lista de variables ()
         public Lenguaje() : base()
@@ -184,6 +185,9 @@ namespace Sintaxis_1
 
                     switch (opc)
                     {
+
+                        // ? Buscar una forma de optimizar para no repetir el código innecesario
+
                         case "Read":
                             txt = Console.Read().ToString();
                             Variable? v = l.Find(variable => variable.getNombre() == variableActual);
@@ -251,6 +255,8 @@ namespace Sintaxis_1
         //SECTION - Instruccion
         private void Instruccion(bool excecute)
         {
+
+            //ANCHOR - PRUEBA EN SWITCH
             switch (getContenido())
             {
                 case "Console":
@@ -366,6 +372,13 @@ namespace Sintaxis_1
                         string input;
                         int value;
 
+                        // ? Buscar una forma de optimizar para no repetir el código innecesario
+                        //SECTION - Ideas
+                        /*
+                        1) Crear otro variable y utilizarlo al salir del switch //NOTE No funcionó 
+                        
+                         */
+
                         switch (opc)
                         {
                             case "Read":
@@ -477,7 +490,6 @@ namespace Sintaxis_1
             Expresion();
             float v2 = s.Pop();
 
-
             switch (operador)
             {
                 case ">":
@@ -564,6 +576,7 @@ namespace Sintaxis_1
         //!SECTION
         // Console -> Console.(WriteLine|Write) (cadena concatenaciones?);
         //SECTION - Console
+        //? Me da la impresión de que se puede optimizar - INVESTIGAR
         private void console(bool excecute)
         {
             bool console = false;
@@ -617,7 +630,8 @@ namespace Sintaxis_1
                     }
                     if (excecute)
                     {
-                        Console.Write(v.getValor().ToString().Replace('"', ' '));
+                        //? Por alguna razón sigue imprimiendo en float REVISAR
+                        Console.Write(((int)v.getValor()).ToString());
                     }
                     //match(v.getValor().ToString());
                 }
@@ -636,10 +650,7 @@ namespace Sintaxis_1
             {
                 content = getContenido() == "ReadLine" ? Console.ReadLine() : ((char)Console.Read()).ToString();
             }
-            /* else
-            {
-                content = content.Replace("\"", "").Replace("\\n", "\n");
-            } */
+
 
             if (!isRead && excecute)
             {
@@ -725,7 +736,8 @@ namespace Sintaxis_1
                 {
                     case "*": s.Push(n2 * n1); break;
                     case "/": s.Push(n2 / n1); break;
-                    case "%": s.Push(n2 % n1); break;
+                    //ANCHOR - Prueba de Math.Floor
+                    case "%": s.Push((float)Math.Floor(n2 % n1)); break;
                 }
             }
         }

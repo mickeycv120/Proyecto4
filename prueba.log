@@ -1,5 +1,5 @@
 Fecha: 09/12/2024 
-Hora: 01:07 a. m. 
+Hora: 01:34 a. m. 
 Archivo: prueba.cpp 
 
 using = Identificador
@@ -91,34 +91,12 @@ n = Identificador
 = = Asignacion
 5 = Numero
 ; = FinSentencia
-for = PalabraReservada
-( = Caracter
 b = Identificador
-= = Asignacion
-100 = Numero
+++ = OperadorTermino
 ; = FinSentencia
 Lista de Variables
 a Int 107.77777
-b Int 100
-n Int 5
-a = Identificador
-< = OperadorRelacional
-n = Identificador
-; = FinSentencia
-a = Identificador
-++ = OperadorTermino
-) = Caracter
-Lista de Variables
-a Int 108.77777
-b Int 100
-n Int 5
-{ = InicioBloque
-b = Identificador
-++ = OperadorTermino
-; = FinSentencia
-Lista de Variables
-a Int 108.77777
-b Int 101
+b Int 10
 n Int 5
 while = PalabraReservada
 ( = Caracter
@@ -151,7 +129,6 @@ WriteLine = Identificador
 "n es diferente de 5" = Cadena
 ) = Caracter
 ; = FinSentencia
-} = FinBloque
 } = FinBloque
 } = FinBloque
 if = PalabraReservada
@@ -228,6 +205,6 @@ WriteLine = Identificador
 ; = FinSentencia
 } = FinBloque
 Lista de Variables
-a Int 108.77777
-b Int 101
+a Int 107.77777
+b Int 10
 n Int 5
