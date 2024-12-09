@@ -1,5 +1,5 @@
-Fecha: 08/12/2024 
-Hora: 12:00 p. m. 
+Fecha: 09/12/2024 
+Hora: 12:50 a. m. 
 Archivo: prueba.cpp 
 
 static = Identificador
@@ -15,14 +15,28 @@ args = Identificador
 int = TipoDato
 b = Identificador
 = = Asignacion
-Console = Identificador
-. = Caracter
-ReadLine = Identificador
-( = Caracter
-) = Caracter
+5 = Numero
 ; = FinSentencia
 int = TipoDato
 a = Identificador
+= = Asignacion
+( = Caracter
+3 = Numero
++ = OperadorTermino
+5 = Numero
+) = Caracter
+* = OperadorFactor
+8 = Numero
+- = OperadorTermino
+( = Caracter
+10 = Numero
+- = OperadorTermino
+2 = Numero
+* = OperadorFactor
+b = Identificador
+) = Caracter
+/ = OperadorFactor
+b = Identificador
 ; = FinSentencia
 a = Identificador
 = = Asignacion
@@ -31,22 +45,126 @@ b = Identificador
 10 = Numero
 ; = FinSentencia
 Lista de Variables
-b Int 8
-a Int 18
+b Int 5
+a Int 15
+int = TipoDato
+n = Identificador
+= = Asignacion
+5 = Numero
+; = FinSentencia
+if = PalabraReservada
+( = Caracter
+n = Identificador
+== = OperadorRelacional
+5 = Numero
+) = Caracter
+{ = InicioBloque
 Console = Identificador
 . = Caracter
 WriteLine = Identificador
 ( = Caracter
-"Hola " = Cadena
+"5 es igual a " = Cadena
++ = OperadorTermino
+n = Identificador
++ = OperadorTermino
+" " = Cadena
 + = OperadorTermino
 a = Identificador
 + = OperadorTermino
-" adiós" = Cadena
+" " = Cadena
 + = OperadorTermino
 b = Identificador
 ) = Caracter
 ; = FinSentencia
 } = FinBloque
+else = PalabraReservada
+{ = InicioBloque
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"5 es diferente a " = Cadena
++ = OperadorTermino
+n = Identificador
+) = Caracter
+; = FinSentencia
+} = FinBloque
+if = PalabraReservada
+( = Caracter
+a = Identificador
+% = OperadorFactor
+2 = Numero
+!= = OperadorRelacional
+0 = Numero
+) = Caracter
+{ = InicioBloque
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"Es impar " = Cadena
++ = OperadorTermino
+a = Identificador
+) = Caracter
+; = FinSentencia
+if = PalabraReservada
+( = Caracter
+b = Identificador
+== = OperadorRelacional
+2 = Numero
+) = Caracter
+{ = InicioBloque
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"b es igual a 2" = Cadena
+) = Caracter
+; = FinSentencia
+} = FinBloque
+else = PalabraReservada
+if = PalabraReservada
+( = Caracter
+b = Identificador
+> = OperadorRelacional
+3 = Numero
+) = Caracter
+{ = InicioBloque
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"b es mayor a 3 y vale " = Cadena
++ = OperadorTermino
+b = Identificador
+) = Caracter
+; = FinSentencia
+} = FinBloque
+else = PalabraReservada
+{ = InicioBloque
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"b no es igual a 2 y vale " = Cadena
++ = OperadorTermino
+b = Identificador
+) = Caracter
+; = FinSentencia
+} = FinBloque
+} = FinBloque
+else = PalabraReservada
+{ = InicioBloque
+Console = Identificador
+. = Caracter
+WriteLine = Identificador
+( = Caracter
+"Es par" = Cadena
+) = Caracter
+; = FinSentencia
+} = FinBloque
+} = FinBloque
 Lista de Variables
-b Int 8
-a Int 18
+b Int 5
+a Int 15
+n Int 5

@@ -440,7 +440,7 @@ namespace Sintaxis_1
             match("if");
             match("(");
             bool execute = Condicion() && excecute2;
-            Console.WriteLine(execute);
+            Console.WriteLine("\n" + execute);
             match(")");
             if (getContenido() == "{")
             {
@@ -599,13 +599,11 @@ namespace Sintaxis_1
 
                 if (getClasificacion() == Tipos.Cadena)
                 {
-                    content += getContenido();
-                    match(Tipos.Cadena);
-                    if (getContenido() == "+")
+                    if (excecute)
                     {
-                        match("+");
-                        Concatenaciones();
+                        Console.Write(getContenido().ToString().Replace('"', ' '));
                     }
+                    match(Tipos.Cadena);
                 }
                 else
                 {
@@ -617,10 +615,18 @@ namespace Sintaxis_1
                     {
                         throw new Error("La variable no existe", log, linea);
                     }
-                    Console.WriteLine(v.getValor());
-                    match(v.getValor().ToString());
-
+                    if (excecute)
+                    {
+                        Console.Write(v.getValor().ToString().Replace('"', ' '));
+                    }
+                    //match(v.getValor().ToString());
                 }
+            }
+
+            if (getContenido() == "+")
+            {
+                match("+");
+                Concatenaciones();
             }
 
             match(")");
@@ -630,10 +636,10 @@ namespace Sintaxis_1
             {
                 content = getContenido() == "ReadLine" ? Console.ReadLine() : ((char)Console.Read()).ToString();
             }
-            else
+            /* else
             {
                 content = content.Replace("\"", "").Replace("\\n", "\n");
-            }
+            } */
 
             if (!isRead && excecute)
             {
@@ -763,13 +769,8 @@ namespace Sintaxis_1
         {
             if (getClasificacion() == Tipos.Cadena)
             {
-                Console.WriteLine(getContenido());
+                Console.Write(getContenido().ToString().Replace('"', ' '));
                 match(Tipos.Cadena);
-                if (getContenido() == "+")
-                {
-                    match("+");
-                    Concatenaciones();
-                }
             }
             else
             {
@@ -781,13 +782,12 @@ namespace Sintaxis_1
                 {
                     throw new Error("La variable no existe", log, linea);
                 }
-                Console.WriteLine(v.getValor());
-                if (getContenido() == "+")
-                {
-                    match("+");
-                    Console.WriteLine(v.getValor());
-                    Concatenaciones();
-                }
+                Console.Write(v.getValor().ToString().Replace('\"', ' '));
+            }
+            if (getContenido() == "+")
+            {
+                match("+");
+                Concatenaciones();
             }
         }
         //!SECTION
