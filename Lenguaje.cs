@@ -1,10 +1,10 @@
 /* 
 //SECTION - Requerimientos
-    //* 1) Concatenaciones
-    //* 2) Inicializar una variable desde la declaración
-    //* 3) Evaluar las expresiones matemáticas
-    //* 4) Levantar si en el Console.ReadLine() no ingresan números
-    //* 5) Modificar la variable con el resto de operadores (Incremento de factor y término)
+    //* 1) Concatenaciones * 
+    //* 2) Inicializar una variable desde la declaración * 
+    //* 3) Evaluar las expresiones matemáticas *
+    //* 4) Levantar si en el Console.ReadLine() no ingresan números *
+    //* 5) Modificar la variable con el resto de operadores (Incremento de factor y término) *
     //* 6) Hacer que funcione el else
 
 
@@ -251,37 +251,34 @@ namespace Sintaxis_1
         //SECTION - Instruccion
         private void Instruccion(bool excecute)
         {
-            if (excecute)
+            switch (getContenido())
             {
-                switch (getContenido())
-                {
-                    case "Console":
-                        console(excecute);
-                        break;
-                    case "if":
-                        If(excecute);
-                        break;
-                    case "while":
-                        While();
-                        break;
-                    case "do":
-                        Do();
-                        break;
-                    case "for":
-                        For();
-                        break;
-                    default:
-                        if (getClasificacion() == Tipos.TipoDato)
-                        {
-                            Variables();
-                        }
-                        else
-                        {
-                            Asignacion();
-                            match(";");
-                        }
-                        break;
-                }
+                case "Console":
+                    console(excecute);
+                    break;
+                case "if":
+                    If(excecute);
+                    break;
+                case "while":
+                    While();
+                    break;
+                case "do":
+                    Do();
+                    break;
+                case "for":
+                    For();
+                    break;
+                default:
+                    if (getClasificacion() == Tipos.TipoDato)
+                    {
+                        Variables();
+                    }
+                    else
+                    {
+                        Asignacion();
+                        match(";");
+                    }
+                    break;
             }
         }
         //!SECTION
@@ -460,11 +457,11 @@ namespace Sintaxis_1
 
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones(execute);
+                    BloqueInstrucciones(!execute && excecute2);
                 }
                 else
                 {
-                    Instruccion(execute);
+                    Instruccion(!execute && excecute2);
                 }
             }
         }
@@ -638,7 +635,7 @@ namespace Sintaxis_1
                 content = content.Replace("\"", "").Replace("\\n", "\n");
             }
 
-            if (!isRead)
+            if (!isRead && excecute)
             {
                 switch (console)
                 {

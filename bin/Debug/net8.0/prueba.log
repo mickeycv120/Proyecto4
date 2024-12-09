@@ -1,5 +1,5 @@
 Fecha: 08/12/2024 
-Hora: 01:54 a. m. 
+Hora: 12:00 p. m. 
 Archivo: prueba.cpp 
 
 static = Identificador
@@ -31,8 +31,8 @@ b = Identificador
 10 = Numero
 ; = FinSentencia
 Lista de Variables
-b Int 9
-a Int 19
+b Int 8
+a Int 18
 Console = Identificador
 . = Caracter
 WriteLine = Identificador
@@ -48,5 +48,5 @@ b = Identificador
 ; = FinSentencia
 } = FinBloque
 Lista de Variables
-b Int 9
-a Int 19
+b Int 8
+a Int 18
